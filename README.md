@@ -3,7 +3,7 @@
 ###
 
 <div data-importer="image" align="left">
-  <img data-importer="image" height="300" src="https://s1.ezgif.com/tmp/ezgif-124859003d244396.gif"  />
+  <img data-importer="image" height="500" src="https://s1.ezgif.com/tmp/ezgif-124859003d244396.gif"  />
 </div>
 
 ###
