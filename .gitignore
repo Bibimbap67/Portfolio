@@ -1,6 +1,7 @@
 # Claude Code: local tooling, kept out of the repo
 .claude/
 CLAUDE.md
+.superpowers/
 
 # OS / editor junk
 .DS_Store
