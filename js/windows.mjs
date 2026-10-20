@@ -49,22 +49,29 @@ function animateWindow(el, from, entering) {
   return Promise.race([anim.finished.catch(() => {}), timeout]).then(() => anim.cancel());
 }
 
-export function initWindows(root, { onOpen, onClose, isPhone = () => false } = {}) {
+const EDGES = ["n", "s", "e", "w", "ne", "nw", "se", "sw"];
+
+export function initWindows(root, { onOpen, onClose, onChange, isPhone = () => false, minimizeTarget = () => null } = {}) {
   const wins = new Map([...root.querySelectorAll(".win")].map((el) => [el.id, el]));
   const openers = new Map();
   const closing = new Set(); // windows mid close-animation; reopening one cancels its close
+  const saved = new Map(); // inline geometry from before a maximize
   let z = 10;
+  const changed = () => onChange?.();
+  const bounds = () => ({ width: root.clientWidth, height: root.clientHeight, top: 0 });
 
   function focus(id) {
     const el = wins.get(id);
     if (!el) return;
     wins.forEach((w) => w.classList.toggle("is-focused", w === el));
     el.style.zIndex = ++z;
+    changed();
   }
 
   function open(id, opener = null) {
     const el = wins.get(id);
     if (!el) return;
+    if (el.classList.contains("is-minimized")) return restore(id);
     focus(id);
     const wasClosing = closing.delete(id);
     if (el.classList.contains("is-open") && !wasClosing) return;
@@ -74,6 +81,7 @@ export function initWindows(root, { onOpen, onClose, isPhone = () => false } = {
     el.focus({ preventScroll: true });
     animateWindow(el, opener, true);
     onOpen?.(id);
+    changed();
   }
 
   async function close(id) {
@@ -85,12 +93,45 @@ export function initWindows(root, { onOpen, onClose, isPhone = () => false } = {
     onClose?.(id);
     await animateWindow(el, back, false);
     if (!closing.delete(id)) return; // reopened while closing
-    el.classList.remove("is-open", "is-focused");
+    el.classList.remove("is-open", "is-focused", "is-minimized");
+    changed();
     // Only hand focus back if it was in this window; otherwise it has already moved on.
     if (hadFocus && back?.isConnected && back.offsetParent !== null) back.focus({ preventScroll: true });
   }
 
+  async function minimize(id) {
+    const el = wins.get(id);
+    if (!el?.classList.contains("is-open") || el.classList.contains("is-minimized")) return;
+    await animateWindow(el, minimizeTarget(id), false);
+    el.classList.add("is-minimized");
+    el.classList.remove("is-focused");
+    changed();
+  }
+
+  function restore(id) {
+    const el = wins.get(id);
+    if (!el?.classList.contains("is-minimized")) return;
+    el.classList.remove("is-minimized");
+    focus(id);
+    el.focus({ preventScroll: true });
+    animateWindow(el, minimizeTarget(id), true);
+  }
+
+  function toggleMaximize(id) {
+    const el = wins.get(id);
+    if (!el || isPhone()) return;
+    if (el.classList.toggle("is-maximized")) {
+      saved.set(id, { left: el.style.left, top: el.style.top, width: el.style.width, height: el.style.height });
+      Object.assign(el.style, { left: "", top: "", width: "", height: "" });
+    } else {
+      Object.assign(el.style, saved.get(id) ?? {});
+    }
+    focus(id);
+  }
+
   const openIds = () => [...wins.values()].filter((w) => w.classList.contains("is-open")).map((w) => w.id);
+  const isMinimized = (id) => !!wins.get(id)?.classList.contains("is-minimized");
+  const isFocused = (id) => !!wins.get(id)?.classList.contains("is-focused");
 
   // Clicking or tabbing into a window brings it to the front, so keyboard focus is never hidden.
   const raise = (e) => {
@@ -100,32 +141,60 @@ export function initWindows(root, { onOpen, onClose, isPhone = () => false } = {
   root.addEventListener("pointerdown", raise);
   root.addEventListener("focusin", raise);
 
+  // Shared pointer-drag plumbing for moving and resizing.
+  function track(handle, e, onMove) {
+    handle.setPointerCapture(e.pointerId);
+    const up = () => {
+      handle.removeEventListener("pointermove", onMove);
+      handle.removeEventListener("pointerup", up);
+      handle.removeEventListener("pointercancel", up);
+      handle.closest(".win").classList.remove("is-dragging");
+    };
+    handle.addEventListener("pointermove", onMove);
+    handle.addEventListener("pointerup", up);
+    handle.addEventListener("pointercancel", up);
+  }
+
   // Dragging by the title bar (desktop only). Keyboard users never need it.
   root.addEventListener("pointerdown", (e) => {
     const bar = e.target.closest(".win__bar");
-    if (!bar || isPhone() || e.button !== 0 || e.target.closest("a, button")) return;
-    const el = bar.closest(".win");
+    const el = bar?.closest(".win");
+    if (!bar || isPhone() || e.button !== 0 || e.target.closest("a, button") || el.classList.contains("is-maximized")) return;
     const startX = e.clientX - el.offsetLeft;
     const startY = e.clientY - el.offsetTop;
-    bar.setPointerCapture(e.pointerId);
     el.classList.add("is-dragging");
-    const move = (ev) => {
-      const { x, y } = clampPosition(
-        { x: ev.clientX - startX, y: ev.clientY - startY, w: el.offsetWidth },
-        { width: root.clientWidth, height: root.clientHeight, top: 0 },
-      );
+    track(bar, e, (ev) => {
+      const { x, y } = clampPosition({ x: ev.clientX - startX, y: ev.clientY - startY, w: el.offsetWidth }, bounds());
       el.style.left = `${x}px`;
       el.style.top = `${y}px`;
-    };
-    const up = () => {
-      el.classList.remove("is-dragging");
-      bar.removeEventListener("pointermove", move);
-      bar.removeEventListener("pointerup", up);
-      bar.removeEventListener("pointercancel", up);
-    };
-    bar.addEventListener("pointermove", move);
-    bar.addEventListener("pointerup", up);
-    bar.addEventListener("pointercancel", up);
+    });
+  });
+
+  root.addEventListener("dblclick", (e) => {
+    const bar = e.target.closest(".win__bar");
+    if (bar && !e.target.closest("a, button")) toggleMaximize(bar.closest(".win").id);
+  });
+
+  // Resizing from any edge or corner, like a real window.
+  wins.forEach((el) => {
+    for (const edge of EDGES) {
+      const h = document.createElement("span");
+      h.className = `win__resize win__resize--${edge}`;
+      h.dataset.edge = edge;
+      el.append(h);
+    }
+  });
+  root.addEventListener("pointerdown", (e) => {
+    const handle = e.target.closest(".win__resize");
+    const el = handle?.closest(".win");
+    if (!handle || isPhone() || e.button !== 0 || el.classList.contains("is-maximized")) return;
+    e.preventDefault();
+    const start = { x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight };
+    track(handle, e, (ev) => {
+      const r = resizeRect(start, handle.dataset.edge, ev.clientX - e.clientX, ev.clientY - e.clientY);
+      const { x, y } = clampPosition({ x: r.x, y: r.y, w: r.w }, bounds());
+      Object.assign(el.style, { left: `${x}px`, top: `${y}px`, width: `${r.w}px`, height: `${Math.min(r.h, root.clientHeight)}px` });
+    });
   });
 
   document.addEventListener("keydown", (e) => {
@@ -139,17 +208,14 @@ export function initWindows(root, { onOpen, onClose, isPhone = () => false } = {
     wins.forEach((el) => {
       if (!el.style.left) return;
       if (isPhone()) {
-        el.style.left = el.style.top = "";
+        Object.assign(el.style, { left: "", top: "", width: "", height: "" });
         return;
       }
-      const { x, y } = clampPosition(
-        { x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth },
-        { width: root.clientWidth, height: root.clientHeight, top: 0 },
-      );
+      const { x, y } = clampPosition({ x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth }, bounds());
       el.style.left = `${x}px`;
       el.style.top = `${y}px`;
     });
   });
 
-  return { open, close, focus, openIds };
+  return { open, close, focus, minimize, restore, toggleMaximize, openIds, isMinimized, isFocused };
 }
