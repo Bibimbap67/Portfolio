@@ -24,12 +24,14 @@ function animateWindow(el, from, entering) {
   }
   const shown = reduce ? { opacity: 1 } : { opacity: 1, transform: "scale(1)", filter: "blur(0px)" };
   const hidden = reduce ? { opacity: 0 } : { opacity: 0, transform: "scale(0.55)", filter: "blur(8px)" };
-  return el
-    .animate(entering ? [hidden, shown] : [shown, hidden], {
-      duration: entering ? (reduce ? 120 : 300) : reduce ? 100 : 170,
-      easing: entering ? "cubic-bezier(0.16, 1, 0.3, 1)" : "cubic-bezier(0.5, 0, 0.75, 0)",
-    })
-    .finished.catch(() => {});
+  const duration = entering ? (reduce ? 120 : 300) : reduce ? 100 : 170;
+  const anim = el.animate(entering ? [hidden, shown] : [shown, hidden], {
+    duration,
+    easing: entering ? "cubic-bezier(0.16, 1, 0.3, 1)" : "cubic-bezier(0.5, 0, 0.75, 0)",
+  });
+  // Background tabs pause animations; never let a stalled one hold a window half-closed.
+  const timeout = new Promise((done) => setTimeout(done, duration + 150));
+  return Promise.race([anim.finished.catch(() => {}), timeout]).then(() => anim.cancel());
 }
 
 export function initWindows(root, { onOpen, onClose, isPhone = () => false } = {}) {

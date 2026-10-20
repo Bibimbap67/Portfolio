@@ -228,7 +228,7 @@ html:not(.js) .menubar__toggle { display: none; }
   color: var(--text-muted);
   text-decoration: none;
 }
-.win__close span { display: none; }
+.win__close span, .win__close .icon--back { display: none; }
 .win__close:hover { background: var(--tint); color: var(--text); }
 html:not(.js) .win__close { display: none; }
 
@@ -244,6 +244,7 @@ html:not(.js) .win__close { display: none; }
   border: 1px solid var(--edge);
   font-weight: 600;
   text-decoration: none;
+  white-space: nowrap;
   transition: background-color var(--dur), transform var(--dur) var(--ease-out);
 }
 .btn:hover { background: var(--tint); }
@@ -546,6 +547,107 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
     top: 20px;
     right: 18px;
   }
+}
+
+/* ---------- narrow screens: single column (with or without JS) ---------- */
+
+@media (max-width: 720px) {
+  .win__body { padding: 18px; }
+  .win--hello .win__body { grid-template-columns: 1fr; gap: 14px; }
+  .hello__photo img { width: 72px; border-radius: 50%; }
+  .hello__photo figcaption { display: none; }
+  .hello__name { font-size: clamp(2rem, 9vw, 2.6rem); }
+  .hello__line { font-size: 1.02rem; }
+  .player { grid-template-columns: 1fr; }
+  .player__cover { width: min(220px, 60vw); }
+  .about, .contact { grid-template-columns: 1fr; }
+  .about__photo { width: 140px; }
+  .about__rows div, .sysinfo__row { grid-template-columns: 1fr; gap: 4px; }
+  .sysinfo__row dt { padding-top: 0; }
+  .contact__gif { width: 140px; }
+}
+
+/* ---------- phone home screen (JS + narrow screens) ---------- */
+
+@media (max-width: 720px) {
+  html.js .menubar { position: fixed; inset: 0 0 auto 0; }
+  html.js .menubar__toggle { min-width: 40px; min-height: 36px; justify-content: center; padding: 2px 8px; }
+  html.js .menubar__toggle span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+
+  html.js .desktop {
+    max-width: none;
+    padding: calc(var(--bar-h) + 18px) 16px 40px;
+    gap: 28px;
+  }
+
+  /* hello.txt becomes the home-screen widget */
+  html.js #hello { border-radius: 22px; }
+  html.js #hello .win__bar { display: none; }
+  html.js .hello__actions .btn { flex: 1; justify-content: center; }
+
+  html.js .apps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 22px 4px;
+    justify-items: center;
+  }
+  html.js .app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 66px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+  }
+  html.js .app__tile {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    color: #ffffff;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.12), 0 10px 18px -10px rgb(40 24 70 / 0.55);
+    transition: transform var(--dur) var(--ease-out);
+  }
+  html.js .app:active .app__tile { transform: scale(0.94); }
+  html.js .app__tile .icon { width: 28px; height: 28px; stroke-width: 2; }
+  html.js .app--music .app__tile { background: linear-gradient(160deg, #f07ab4, #ad2d6c); }
+  html.js .app--about .app__tile { background: linear-gradient(160deg, #9aa8ff, #5462d6); }
+  html.js .app--skills .app__tile { background: linear-gradient(160deg, #ffd66b, #e59a1c); color: #2a2414; }
+  html.js .app--projects .app__tile { background: linear-gradient(160deg, #7fc7ff, #2f7fd0); }
+  html.js .app--contact .app__tile { background: linear-gradient(160deg, #9fe3b5, #2f9a5c); color: #10301c; }
+  html.js .app span:last-child { padding: 0 6px; border-radius: 4px; background: color-mix(in srgb, var(--win) 55%, transparent); }
+
+  /* opened apps take the whole screen under the status bar */
+  html.js .win:not(#hello):not(.is-open) { display: none; }
+  html.js .win.is-open {
+    position: fixed;
+    inset: var(--bar-h) 0 0 0;
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    border: 0;
+    border-radius: 0;
+  }
+  html.js .win.is-open .win__body { flex: 1; overflow: auto; overscroll-behavior: contain; }
+  html.js .win__bar { padding: 4px 16px 4px 6px; }
+  html.js .win__title { text-align: center; padding-right: 72px; }
+  html.js .win__close {
+    order: -1;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    width: auto;
+    min-height: 44px;
+    padding: 0 10px 0 4px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  html.js .win__close span, html.js .win__close .icon--back { display: inline; }
+  html.js .win__close .icon--close { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
