@@ -28,3 +28,75 @@ export function filterTracks(tracks, query) {
   if (!q) return tracks;
   return tracks.filter((t) => fold(t.title).includes(q) || fold(t.artist).includes(q));
 }
+
+// Spotify keeps isPaused false when a track (or 30s preview) runs out, so the end counts as stopped.
+export function isPlaying({ isPaused, position, duration }) {
+  return !isPaused && !(duration > 0 && position >= duration - 250);
+}
+
+const IFRAME_API = "https://open.spotify.com/embed/iframe-api/v1";
+
+// Spotify's own embed controller, created the first time Music opens so nothing loads before that.
+export function initMusic(root, { onPlayingChange } = {}) {
+  const search = root.querySelector(".music__search");
+  const empty = root.querySelector(".music__empty");
+  const host = root.querySelector("[data-player]");
+  const links = [...root.querySelectorAll("a[data-track-id]")];
+  let controller = null;
+  let ready = false; // script loaded; until then track links just open Spotify
+  let wanted = null; // a track asked for before the controller existed
+  let playOnLoad = false;
+
+  search.addEventListener("input", () => {
+    const keep = new Set(filterTracks(TRACKS, search.value).map((t) => t.id));
+    links.forEach((a) => { a.parentElement.hidden = !keep.has(a.dataset.trackId); });
+    empty.hidden = keep.size > 0;
+    empty.textContent = keep.size ? "" : `No songs match "${search.value.trim()}"`;
+  });
+
+  function play(uri) {
+    if (!controller) { wanted = uri; return; }
+    playOnLoad = true;
+    controller.loadUri(uri);
+  }
+
+  root.addEventListener("click", (e) => {
+    const a = e.target.closest("a[data-track-id]");
+    if (!a || !ready || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    e.preventDefault();
+    links.forEach((l) => l.removeAttribute("aria-current"));
+    a.setAttribute("aria-current", "true");
+    play(`spotify:track:${a.dataset.trackId}`);
+  });
+
+  function mount() {
+    if (ready || host.dataset.mounting) return;
+    host.dataset.mounting = "1";
+    const previous = window.onSpotifyIframeApiReady;
+    window.onSpotifyIframeApiReady = (api) => {
+      previous?.(api);
+      const el = document.createElement("div");
+      host.append(el);
+      api.createController(el, { uri: `spotify:playlist:${PLAYLIST_ID}`, width: "100%", height: 152 }, (c) => {
+        controller = c;
+        c.addListener("ready", () => { if (playOnLoad) { playOnLoad = false; c.play(); } });
+        let quiet = 0; // updates arrive about once a second while playing; silence means it stopped
+        c.addListener("playback_update", (ev) => {
+          const playing = isPlaying(ev.data);
+          onPlayingChange?.(playing);
+          clearTimeout(quiet);
+          if (playing) quiet = setTimeout(() => onPlayingChange?.(false), 3000);
+        });
+        if (wanted) { play(wanted); wanted = null; }
+      });
+    };
+    const script = document.createElement("script");
+    script.src = IFRAME_API;
+    script.async = true;
+    script.onload = () => { ready = true; };
+    script.onerror = () => { delete host.dataset.mounting; }; // offline or blocked: links keep opening Spotify
+    document.head.append(script);
+  }
+
+  return { mount, pause: () => controller?.pause() };
+}

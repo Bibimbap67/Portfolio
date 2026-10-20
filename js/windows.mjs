@@ -143,7 +143,7 @@ export function initWindows(root, { onOpen, onClose, onChange, isPhone = () => f
 
   // Shared pointer-drag plumbing for moving and resizing.
   function track(handle, e, onMove) {
-    handle.setPointerCapture(e.pointerId);
+    try { handle.setPointerCapture(e.pointerId); } catch { /* pointer already gone; the drag still works while it stays over the handle */ }
     const up = () => {
       handle.removeEventListener("pointermove", onMove);
       handle.removeEventListener("pointerup", up);
@@ -193,7 +193,10 @@ export function initWindows(root, { onOpen, onClose, onChange, isPhone = () => f
     track(handle, e, (ev) => {
       const r = resizeRect(start, handle.dataset.edge, ev.clientX - e.clientX, ev.clientY - e.clientY);
       const { x, y } = clampPosition({ x: r.x, y: r.y, w: r.w }, bounds());
-      Object.assign(el.style, { left: `${x}px`, top: `${y}px`, width: `${r.w}px`, height: `${Math.min(r.h, root.clientHeight)}px` });
+      // A clamped top or left edge must not drag the opposite edge along with it.
+      const w = handle.dataset.edge.includes("w") ? r.w - (x - r.x) : r.w;
+      const h = handle.dataset.edge.includes("n") ? r.h - (y - r.y) : r.h;
+      Object.assign(el.style, { left: `${x}px`, top: `${y}px`, width: `${w}px`, height: `${Math.min(h, root.clientHeight)}px` });
     });
   });
 

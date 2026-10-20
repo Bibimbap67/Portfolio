@@ -1,4 +1,4 @@
-export const SECTIONS = ["about", "skills", "projects", "contact"];
+export const SECTIONS = ["music", "about", "skills", "projects", "contact"];
 
 export function sectionFromHash(hash) {
   const id = hash.startsWith("#") ? hash.slice(1) : null;

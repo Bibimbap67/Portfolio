@@ -523,13 +523,14 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
   html.js .win__resize { position: absolute; z-index: 2; }
   html.js .win__resize--n, html.js .win__resize--s { left: 12px; right: 12px; height: 6px; cursor: ns-resize; }
   html.js .win__resize--e, html.js .win__resize--w { top: 12px; bottom: 12px; width: 6px; cursor: ew-resize; }
-  html.js .win__resize--n { top: -3px; } html.js .win__resize--s { bottom: -3px; }
-  html.js .win__resize--e { right: -3px; } html.js .win__resize--w { left: -3px; }
+  /* handles sit just inside the edge: the window clips anything outside its rounded corners */
+  html.js .win__resize--n { top: 0; } html.js .win__resize--s { bottom: 0; }
+  html.js .win__resize--e { right: 0; } html.js .win__resize--w { left: 0; }
   html.js .win__resize--ne, html.js .win__resize--nw, html.js .win__resize--se, html.js .win__resize--sw { width: 14px; height: 14px; }
-  html.js .win__resize--ne { top: -4px; right: -4px; cursor: nesw-resize; }
-  html.js .win__resize--sw { bottom: -4px; left: -4px; cursor: nesw-resize; }
-  html.js .win__resize--nw { top: -4px; left: -4px; cursor: nwse-resize; }
-  html.js .win__resize--se { bottom: -4px; right: -4px; cursor: nwse-resize; }
+  html.js .win__resize--ne { top: 0; right: 0; cursor: nesw-resize; }
+  html.js .win__resize--sw { bottom: 0; left: 0; cursor: nesw-resize; }
+  html.js .win__resize--nw { top: 0; left: 0; cursor: nwse-resize; }
+  html.js .win__resize--se { bottom: 0; right: 0; cursor: nwse-resize; }
 
   html.js #hello    { left: 5vw;  top: 6vh;  width: min(580px, 46vw); }
   /* Music tucks under hello.txt's right edge so the first view reads as stacked windows */

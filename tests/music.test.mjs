@@ -28,3 +28,12 @@ test("ignores accents both ways", () => {
 test("no match returns empty", () => {
   assert.equal(filterTracks(TRACKS, "zzzz").length, 0);
 });
+
+import { isPlaying } from "../js/music.mjs";
+
+test("a finished track is not playing, even if Spotify never says paused", () => {
+  assert.equal(isPlaying({ isPaused: false, position: 5000, duration: 16000 }), true);
+  assert.equal(isPlaying({ isPaused: true, position: 5000, duration: 16000 }), false);
+  assert.equal(isPlaying({ isPaused: false, position: 15900, duration: 16000 }), false);
+  assert.equal(isPlaying({ isPaused: false, position: 0, duration: 0 }), true);
+});
