@@ -65,20 +65,25 @@ export function initWindows(root, { onOpen, onClose, isPhone = () => false } = {
     const el = wins.get(id);
     if (!el?.classList.contains("is-open") || closing.has(id)) return;
     const back = openers.get(id);
+    const hadFocus = el.contains(document.activeElement);
     closing.add(id);
     onClose?.(id);
     await animateWindow(el, back, false);
     if (!closing.delete(id)) return; // reopened while closing
     el.classList.remove("is-open", "is-focused");
-    if (back?.isConnected && back.offsetParent !== null) back.focus({ preventScroll: true });
+    // Only hand focus back if it was in this window; otherwise it has already moved on.
+    if (hadFocus && back?.isConnected && back.offsetParent !== null) back.focus({ preventScroll: true });
   }
 
   const openIds = () => [...wins.values()].filter((w) => w.classList.contains("is-open")).map((w) => w.id);
 
-  root.addEventListener("pointerdown", (e) => {
+  // Clicking or tabbing into a window brings it to the front, so keyboard focus is never hidden.
+  const raise = (e) => {
     const el = e.target.closest(".win");
-    if (el) focus(el.id);
-  });
+    if (el && !el.classList.contains("is-focused")) focus(el.id);
+  };
+  root.addEventListener("pointerdown", raise);
+  root.addEventListener("focusin", raise);
 
   // Dragging by the title bar (desktop only). Keyboard users never need it.
   root.addEventListener("pointerdown", (e) => {

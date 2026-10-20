@@ -17,6 +17,8 @@ export function createSound(AudioContextCtor) {
       if (!enabled || !spec || !AudioContextCtor) return;
       try {
         ctx ??= new AudioContextCtor();
+        // A context made before any user gesture starts suspended; resume once a click allows it.
+        if (ctx.state === "suspended") ctx.resume?.().catch?.(() => {});
         const [from, to, dur] = spec;
         const t = ctx.currentTime;
         const osc = ctx.createOscillator();

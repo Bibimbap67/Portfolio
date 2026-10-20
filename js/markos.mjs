@@ -37,21 +37,28 @@ const clearHash = (id) => {
   if (location.hash === `#${id}`) history.replaceState(null, "", location.pathname + location.search);
 };
 
+// While a full-screen app is open on a phone, the home screen behind it is out of reach.
+const homeScreen = [document.getElementById("hello"), document.getElementById("music"), document.querySelector(".apps")];
+const setHomeInert = (on) => homeScreen.forEach((el) => { el.inert = on; });
+
 const wm = initWindows(document.querySelector(".desktop"), {
   isPhone: () => phone.matches,
   onOpen(id) {
     sound.play("open");
     const track = tracks.find((t) => t.dataset.open === id);
     if (track) selectTrack(track);
+    if (phone.matches) setHomeInert(true);
   },
   onClose(id) {
     sound.play("close");
     clearHash(id);
+    if (wm.openIds().every((o) => o === id)) setHomeInert(false);
   },
 });
 
-// On phones the Music app is routable too; on desktop it's always on screen.
-const idFromHash = () => sectionFromHash(location.hash) ?? (phone.matches && location.hash === "#music" ? "music" : null);
+phone.addEventListener("change", () => setHomeInert(phone.matches && wm.openIds().length > 0));
+
+const idFromHash = () => sectionFromHash(location.hash);
 
 let pendingOpener = null;
 let current = idFromHash();
@@ -138,3 +145,5 @@ function tickClock() {
 }
 tickClock();
 setInterval(tickClock, 30_000);
+
+root.classList.add("wm"); // tells the head script the desktop is wired up

@@ -32,6 +32,20 @@ test("enabled: one context, reused", () => {
   assert.equal(f.count(), 1);
 });
 
+test("a context created before any user gesture is resumed on later plays", () => {
+  let resumed = 0;
+  const f = fakeCtx();
+  class Suspended extends f.Ctx {
+    state = "suspended";
+    resume() { resumed++; this.state = "running"; return Promise.resolve(); }
+  }
+  const s = createSound(Suspended);
+  s.setEnabled(true);
+  s.play("open");
+  s.play("tick");
+  assert.equal(resumed, 1);
+});
+
 test("unknown name or missing AudioContext never throws", () => {
   const s = createSound(undefined);
   s.setEnabled(true);
