@@ -193,7 +193,7 @@ A pastel wallpaper world with near-white surfaces, violet-tinted ink neutrals, a
 
 Two layouts from one document. Base styles (no JS, or any width without the desktop query) are a single centered column, max 980px, 32px top and 64px bottom padding, windows stacked with a 28px gap.
 
-**Desktop (721px and up, with JS):** the menubar is fixed at 36px; the desktop fills the rest of the viewport and does not scroll. Windows are absolutely positioned in viewport units with min() widths (hello.txt about 46vw up to 580px at upper left; Music up to 480px tucked 20px under hello's right edge, a margin smaller than hello's 24px padding so text is never covered). Windows cap at the viewport height minus 32px and scroll inside. Folder icons run down the right edge (20px from top, 18px from right, 6px apart); the sticky note sits lower left, below all windows.
+**Desktop (721px and up, with JS):** the menubar is fixed at 36px; the desktop fills the rest of the viewport and does not scroll. Windows are absolutely positioned in viewport units with min() widths (hello.txt about 46vw up to 580px at upper left; Music up to 480px tucked 20px under hello's right edge, a margin smaller than hello's 24px padding so text is never covered). Windows cap at the viewport height minus 32px and scroll inside. Folder icons run down the right edge (20px from top, 18px from right, 6px apart); the sticky note sits lower left, below all windows, and is hidden below 1100×760, where there is no free wall space.
 
 **Phone (720px and below, with JS):** the bar grows to 48px; hello.txt and Music become borderless-titlebar widgets with 22px corners, with a 4-column app grid between them (60px tiles, 22px row gap). Opened apps fill the screen under the bar, with a centered mono title and a berry "back" control at left. Touch targets grow to 44-48px.
 
@@ -236,7 +236,7 @@ The signature container.
 - **Motion:** opening grows the window out of the element that opened it, scale 0.55 to 1 and blur 8px to 0 over 300ms on cubic-bezier(0.16, 1, 0.3, 1); closing runs 170ms on an ease-in. With reduced motion it is an opacity fade only (120ms in, 100ms out).
 
 ### Navigation
-- **Menubar:** 36px translucent strip. Left: the "markOS" menu (800 weight, with a 10px wallpaper-to-berry gradient dot) opening a 180px dropdown of section links. Right: the mono clock, then Dark and Sound toggles (icon plus label, 8px radius, tint on hover, berry when pressed). Sound is synthesized and off by default.
+- **Menubar:** 36px translucent strip. Left: the "markOS" menu (800 weight, with a 10px wallpaper-to-berry gradient dot) opening a 180px dropdown of GitHub, Instagram and Email links. Right: the mono clock, then Dark and Sound toggles (icon plus label, 8px radius, tint on hover, berry when pressed). Sound is synthesized and off by default.
 - **Tracklist:** the album is the main navigation. Rows are a three-column grid (mono number, title, mono duration), 40px min, 8px radius, tint on hover. The title track's name is berry with a filled star; the current track gets a tint background, 700 weight and a berry number.
 - **Desktop icons:** 92px wide, 52px authored folder SVGs in folder blue, labels on a 55% window-colored backing with 4px corners.
 
