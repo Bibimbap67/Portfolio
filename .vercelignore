@@ -1,0 +1,8 @@
+# Dev-only files: keep them out of the deployed site
+.impeccable
+.superpowers
+docs
+tests
+PRODUCT.md
+DESIGN.md
+README.md
