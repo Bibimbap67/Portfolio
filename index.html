@@ -14,6 +14,9 @@
       try { t = localStorage.getItem("markos-theme"); } catch (e) {}
       d.classList.add("js");
       d.dataset.theme = t === "dark" || t === "light" ? t : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      try {
+        if (sessionStorage.getItem("markos-booted") !== "1" && !matchMedia("(prefers-reduced-motion: reduce)").matches) d.classList.add("boot");
+      } catch (e) {}
       // If js/markos.mjs fails to run, fall back to the plain readable page.
       document.addEventListener("DOMContentLoaded", function () {
         if (!d.classList.contains("wm")) d.classList.remove("js");
@@ -32,24 +35,64 @@
     <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
     <symbol id="i-sound-off" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9.5l4 5M21 9.5l-4 5"/></symbol>
     <symbol id="i-sound-on" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></symbol>
-    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></symbol>
-    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8.5 5v14M15.5 5v14"/></symbol>
-    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
     <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
     <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></symbol>
-    <symbol id="i-note" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></symbol>
-    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
-    <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
     <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></symbol>
+    <symbol id="i-spotify" viewBox="0 0 24 24"><path class="fill" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.52 17.34c-.24.36-.66.48-1.02.24-2.82-1.74-6.36-2.1-10.56-1.14-.42.12-.78-.18-.9-.54-.12-.42.18-.78.54-.9 4.56-1.02 8.52-.6 11.64 1.32.42.18.48.66.3 1.02zm1.44-3.3c-.3.42-.84.6-1.26.3-3.24-1.98-8.16-2.58-11.94-1.38-.48.12-1.02-.12-1.14-.6-.12-.48.12-1.02.6-1.14C9.6 9.9 15 10.56 18.72 12.84c.36.18.54.78.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.3c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+    <symbol id="i-idcard" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2.2"/><path d="M5.8 16.2a3.4 3.4 0 0 1 6.4 0M14.5 10h4M14.5 13.5h3"/></symbol>
+    <symbol id="i-toolbox" viewBox="0 0 24 24"><path d="M3 10h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M8 10V7.5A1.5 1.5 0 0 1 9.5 6h5A1.5 1.5 0 0 1 16 7.5V10M3 14h18M10 14v2h4v-2"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5M22 9v6"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></symbol>
     <symbol id="i-box" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3.5"/></symbol>
     <symbol id="i-checked" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8 12.5l3 3 5.5-6.5"/></symbol>
   </svg>
 
+  <div class="boot" aria-hidden="true">
+    <svg class="boot__wheel" viewBox="0 0 120 120">
+      <g class="boot__spokes" fill="none" stroke="currentColor" stroke-width="3">
+        <circle cx="60" cy="60" r="54"/><circle cx="60" cy="60" r="46" stroke-opacity=".4"/>
+        <path d="M60 6v108M6 60h108M22 22l76 76M98 22l-76 76" stroke-opacity=".35"/>
+      </g>
+    </svg>
+    <div class="boot__runner"><svg class="hamster" viewBox="0 0 40 32" aria-hidden="true">
+            <g class="hamster__ear hamster__ear--l"><circle cx="11" cy="9" r="5" fill="#e8a46a"/><circle cx="11" cy="9" r="2.6" fill="#f6a3cf"/></g>
+            <g class="hamster__ear hamster__ear--r"><circle cx="29" cy="9" r="5" fill="#e8a46a"/><circle cx="29" cy="9" r="2.6" fill="#f6a3cf"/></g>
+            <g class="hamster__body">
+              <ellipse cx="20" cy="19" rx="15" ry="12" fill="#f2c48d"/>
+              <ellipse cx="20" cy="23" rx="9" ry="7" fill="#fff3dc"/>
+              <g class="hamster__eyes" fill="#1b1726"><ellipse cx="14.5" cy="16.5" rx="1.8" ry="2"/><ellipse cx="25.5" cy="16.5" rx="1.8" ry="2"/></g>
+              <circle cx="11" cy="21" r="2.6" fill="#f6a3cf" opacity=".75"/><circle cx="29" cy="21" r="2.6" fill="#f6a3cf" opacity=".75"/>
+              <path d="M18.6 19.4h2.8L20 21z" fill="#c2477f"/>
+              <path class="hamster__mouth" d="M17.8 22.4q2.2 1.6 4.4 0" fill="none" stroke="#1b1726" stroke-width="1" stroke-linecap="round"/>
+            </g>
+          </svg></div>
+    <p class="boot__name">markOS</p>
+    <span class="boot__bar"><span></span></span>
+    <p class="boot__line">booting&hellip;</p>
+  </div>
+
   <header class="menubar">
     <details class="menubar__menu">
-      <summary>markOS</summary>
+      <summary aria-label="markOS menu">
+          <svg class="hamster" viewBox="0 0 40 32" aria-hidden="true">
+            <g class="hamster__ear hamster__ear--l"><circle cx="11" cy="9" r="5" fill="#e8a46a"/><circle cx="11" cy="9" r="2.6" fill="#f6a3cf"/></g>
+            <g class="hamster__ear hamster__ear--r"><circle cx="29" cy="9" r="5" fill="#e8a46a"/><circle cx="29" cy="9" r="2.6" fill="#f6a3cf"/></g>
+            <g class="hamster__body">
+              <ellipse cx="20" cy="19" rx="15" ry="12" fill="#f2c48d"/>
+              <ellipse cx="20" cy="23" rx="9" ry="7" fill="#fff3dc"/>
+              <g class="hamster__eyes" fill="#1b1726"><ellipse cx="14.5" cy="16.5" rx="1.8" ry="2"/><ellipse cx="25.5" cy="16.5" rx="1.8" ry="2"/></g>
+              <circle cx="11" cy="21" r="2.6" fill="#f6a3cf" opacity=".75"/><circle cx="29" cy="21" r="2.6" fill="#f6a3cf" opacity=".75"/>
+              <path d="M18.6 19.4h2.8L20 21z" fill="#c2477f"/>
+              <path class="hamster__mouth" d="M17.8 22.4q2.2 1.6 4.4 0" fill="none" stroke="#1b1726" stroke-width="1" stroke-linecap="round"/>
+            </g>
+          </svg>
+          <span class="hamster__bubble" aria-hidden="true"></span>
+          <span class="sr-only" aria-live="polite" data-hamster-live></span>
+        </summary>
       <ul>
         <li><a href="https://github.com/Bibimbap67" target="_blank" rel="noopener">GitHub</a></li>
         <li><a href="https://www.instagram.com/bibimbapkr/" target="_blank" rel="noopener">Instagram</a></li>
@@ -69,8 +112,15 @@
 
   <main class="desktop">
 
-    <section class="win win--hello" id="hello" aria-labelledby="hello-title">
-      <div class="win__bar"><p class="win__title" id="hello-title">hello.txt</p></div>
+    <section class="win win--hello is-open" id="hello" aria-labelledby="hello-title">
+      <div class="win__bar">
+        <div class="win__lights">
+          <button type="button" class="light light--close" data-close="hello" aria-label="Close hello.txt"></button>
+          <button type="button" class="light light--min" data-minimize="hello" aria-label="Minimize hello.txt"></button>
+          <button type="button" class="light light--max" data-maximize="hello" aria-label="Maximize hello.txt"></button>
+        </div>
+        <p class="win__title" id="hello-title">hello.txt</p>
+      </div>
       <div class="win__body">
         <figure class="hello__photo">
           <img src="https://i.giphy.com/oQht1Hk7HJ8USa5jrK.webp" alt="Mark's animated profile picture" width="160" height="160">
@@ -81,9 +131,9 @@
           <p class="hello__role">Web Developer / IT Student</p>
           <p class="hello__line">I love making simple things complicated, and complicated things simple, lol.</p>
           <ul class="hello__facts">
-            <li><span class="status-dot" aria-hidden="true"></span>3rd Year BSIT Student</li>
-            <li>Parañaque City, Philippines</li>
-            <li>Web &amp; App Development</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg>3rd Year BSIT Student</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>Parañaque City, Philippines</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg>Web &amp; App Development</li>
           </ul>
           <div class="hello__actions">
             <a class="btn btn--primary" href="#projects" data-open="projects">Open Projects <svg class="icon" aria-hidden="true"><use href="#i-star"/></svg></a>
@@ -95,44 +145,38 @@
 
     <section class="win win--music" id="music" aria-labelledby="music-title">
       <div class="win__bar">
-        <h2 class="win__title" id="music-title">Music</h2>
-        <a class="win__close win__home" href="#" data-close="music" aria-label="Back to home screen"><svg class="icon" aria-hidden="true"><use href="#i-back"/></svg><span>Home</span></a>
-      </div>
-      <div class="win__body player">
-        <svg class="player__cover" viewBox="0 0 200 200" role="img" aria-label="Album cover for Simple, Complicated">
-          <rect width="200" height="200" fill="#ad2d6c"/>
-          <g fill="none" stroke="#ffffff" stroke-opacity=".09">
-            <circle cx="148" cy="62" r="44"/><circle cx="148" cy="62" r="56"/><circle cx="148" cy="62" r="68"/>
-          </g>
-          <circle cx="148" cy="62" r="76" fill="#1b1726"/>
-          <g fill="none" stroke="#ffffff" stroke-opacity=".08">
-            <circle cx="148" cy="62" r="38"/><circle cx="148" cy="62" r="50"/><circle cx="148" cy="62" r="62"/>
-          </g>
-          <circle cx="148" cy="62" r="24" fill="#fff0a8"/>
-          <circle cx="148" cy="62" r="3.5" fill="#1b1726"/>
-          <path d="M0 132 C40 116 70 150 110 134 S170 118 200 130 V200 H0 Z" fill="#c3cdff"/>
-          <path d="M0 150 C46 138 76 166 118 152 S172 140 200 150 V200 H0 Z" fill="#f4bfe0"/>
-          <text x="14" y="26" font-family="IBM Plex Mono, monospace" font-size="10" fill="#fff0a8" letter-spacing="1">MP · 01</text>
-          <text x="14" y="174" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="27" letter-spacing="-1.2" fill="#1b1726">Simple,</text>
-          <text x="14" y="193" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="20" letter-spacing="-.8" fill="#1b1726">Complicated</text>
-        </svg>
-        <div class="player__info">
-          <h3 class="player__album">Simple, Complicated</h3>
-          <p class="player__meta">Mark&nbsp;Panolin&nbsp;&middot; The&nbsp;1st&nbsp;Mini&nbsp;Album</p>
-          <ol class="tracks">
-            <li><a href="#about" data-open="about" data-track><span class="tracks__n">01</span><span class="tracks__name">About Me</span><span class="tracks__time">1:24</span></a></li>
-            <li><a href="#skills" data-open="skills" data-track><span class="tracks__n">02</span><span class="tracks__name">Skills</span><span class="tracks__time">2:03</span></a></li>
-            <li><a href="#projects" data-open="projects" data-track class="tracks__title"><span class="tracks__n">03</span><span class="tracks__name">Projects <svg class="icon" aria-label="title track" role="img"><use href="#i-star"/></svg></span><span class="tracks__time">3:33</span></a></li>
-            <li><a href="#contact" data-open="contact" data-track><span class="tracks__n">04</span><span class="tracks__name">Contact</span><span class="tracks__time">0:45</span></a></li>
-          </ol>
-          <div class="player__now">
-            <button class="player__play" type="button" data-play aria-label="Play About Me">
-              <svg class="icon" aria-hidden="true"><use href="#i-play"/></svg>
-            </button>
-            <p class="player__np" data-now-playing>Not playing</p>
-            <span class="player__progress" aria-hidden="true"><span></span></span>
-          </div>
+        <div class="win__lights">
+          <button type="button" class="light light--close" data-close="music" aria-label="Close Music"></button>
+          <button type="button" class="light light--min" data-minimize="music" aria-label="Minimize Music"></button>
+          <button type="button" class="light light--max" data-maximize="music" aria-label="Maximize Music"></button>
         </div>
+        <h2 class="win__title" id="music-title">Music</h2>
+        <a class="win__home" href="#" data-close="music" aria-label="Back to home screen"><svg class="icon" aria-hidden="true"><use href="#i-back"/></svg><span>Home</span></a>
+      </div>
+      <div class="win__body music">
+        <input type="search" class="music__search" placeholder="Search songs" aria-label="Search songs" autocomplete="off">
+        <ol class="music__list">
+          <li><a href="https://open.spotify.com/track/1SaLI6o5GhfcaxPVAJoD3r" target="_blank" rel="noopener" data-track-id="1SaLI6o5GhfcaxPVAJoD3r"><span class="music__title">Hot Mess</span><span class="music__artist">aespa</span><span class="music__time">3:12</span></a></li>
+          <li><a href="https://open.spotify.com/track/1o844wI52S3TjXGBwvGcc7" target="_blank" rel="noopener" data-track-id="1o844wI52S3TjXGBwvGcc7"><span class="music__title">Hold On Tight</span><span class="music__artist">aespa</span><span class="music__time">2:29</span></a></li>
+          <li><a href="https://open.spotify.com/track/2wRXvIGUTRWod4yp1k3bGN" target="_blank" rel="noopener" data-track-id="2wRXvIGUTRWod4yp1k3bGN"><span class="music__title">Dark Arts</span><span class="music__artist">aespa</span><span class="music__time">3:01</span></a></li>
+          <li><a href="https://open.spotify.com/track/1OLAjffdDJibTrUGAwApVk" target="_blank" rel="noopener" data-track-id="1OLAjffdDJibTrUGAwApVk"><span class="music__title">ICONIC HEART</span><span class="music__artist">Hearts2Hearts</span><span class="music__time">3:09</span></a></li>
+          <li><a href="https://open.spotify.com/track/5EoV2HmAlkqN1XvsIjOBZZ" target="_blank" rel="noopener" data-track-id="5EoV2HmAlkqN1XvsIjOBZZ"><span class="music__title">STYLE</span><span class="music__artist">Hearts2Hearts</span><span class="music__time">3:29</span></a></li>
+          <li><a href="https://open.spotify.com/track/3AoEQRuFf8zVXWqSLo2UOi" target="_blank" rel="noopener" data-track-id="3AoEQRuFf8zVXWqSLo2UOi"><span class="music__title">CRAZY</span><span class="music__artist">LE SSERAFIM</span><span class="music__time">2:44</span></a></li>
+          <li><a href="https://open.spotify.com/track/2vdkN2NSQ5mxqNGg7sJUxs" target="_blank" rel="noopener" data-track-id="2vdkN2NSQ5mxqNGg7sJUxs"><span class="music__title">ICY</span><span class="music__artist">ITZY</span><span class="music__time">3:11</span></a></li>
+          <li><a href="https://open.spotify.com/track/6VedlO2MtaEjAITax6vQyg" target="_blank" rel="noopener" data-track-id="6VedlO2MtaEjAITax6vQyg"><span class="music__title">Toki Yo Tomare</span><span class="music__artist">ILLIT</span><span class="music__time">3:08</span></a></li>
+          <li><a href="https://open.spotify.com/track/74muMkVdMYoR65lhmdzy13" target="_blank" rel="noopener" data-track-id="74muMkVdMYoR65lhmdzy13"><span class="music__title">Day 1</span><span class="music__artist">Red Velvet</span><span class="music__time">3:26</span></a></li>
+          <li><a href="https://open.spotify.com/track/0CnpSTdL9l5vQM4YnzXtyo" target="_blank" rel="noopener" data-track-id="0CnpSTdL9l5vQM4YnzXtyo"><span class="music__title">Panorama</span><span class="music__artist">IZ*ONE</span><span class="music__time">3:42</span></a></li>
+          <li><a href="https://open.spotify.com/track/0eFMbKCRw8KByXyWBw8WO7" target="_blank" rel="noopener" data-track-id="0eFMbKCRw8KByXyWBw8WO7"><span class="music__title">Still With You</span><span class="music__artist">Jung Kook</span><span class="music__time">3:59</span></a></li>
+          <li><a href="https://open.spotify.com/track/37HhnXqIRFSSJXWsysl6B7" target="_blank" rel="noopener" data-track-id="37HhnXqIRFSSJXWsysl6B7"><span class="music__title">Ride</span><span class="music__artist">HYBS</span><span class="music__time">3:01</span></a></li>
+          <li><a href="https://open.spotify.com/track/5mtTAScDytxMMqZj14NmlN" target="_blank" rel="noopener" data-track-id="5mtTAScDytxMMqZj14NmlN"><span class="music__title">love.</span><span class="music__artist">wave to earth</span><span class="music__time">5:07</span></a></li>
+          <li><a href="https://open.spotify.com/track/41P6Tnd8KIHqON0QIydx6a" target="_blank" rel="noopener" data-track-id="41P6Tnd8KIHqON0QIydx6a"><span class="music__title">the perfect pair</span><span class="music__artist">beabadoobee</span><span class="music__time">2:57</span></a></li>
+          <li><a href="https://open.spotify.com/track/4pryE6cN2gFL1FVF5fYINl" target="_blank" rel="noopener" data-track-id="4pryE6cN2gFL1FVF5fYINl"><span class="music__title">Leave The Door Open</span><span class="music__artist">Bruno Mars, Anderson .Paak, Silk Sonic</span><span class="music__time">4:02</span></a></li>
+          <li><a href="https://open.spotify.com/track/63HwAAXuSV2tzIUPoHOwZa" target="_blank" rel="noopener" data-track-id="63HwAAXuSV2tzIUPoHOwZa"><span class="music__title">Atmosphere</span><span class="music__artist">FISHER, Kita Alexander</span><span class="music__time">3:02</span></a></li>
+          <li><a href="https://open.spotify.com/track/5mnpMkzp3Z2RCCbwIEZCbv" target="_blank" rel="noopener" data-track-id="5mnpMkzp3Z2RCCbwIEZCbv"><span class="music__title">Phonky Town</span><span class="music__artist">PlayaPhonk</span><span class="music__time">2:21</span></a></li>
+        </ol>
+        <p class="music__empty" hidden></p>
+        <div class="music__player" data-player></div>
+        <a class="music__open" href="https://open.spotify.com/playlist/3QAwwmlzsDZjdNQOx1ldQH" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-spotify"/></svg>Listen on Spotify</a>
       </div>
     </section>
 
@@ -145,24 +189,31 @@
       </ul>
     </aside>
 
-    <nav class="icons" aria-label="Desktop folders">
-      <a href="#projects" data-open="projects"><svg class="icon" aria-hidden="true"><use href="#i-folder"/></svg><span>Projects</span></a>
-      <a href="#about" data-open="about"><svg class="icon" aria-hidden="true"><use href="#i-folder"/></svg><span>About</span></a>
-      <a href="#skills" data-open="skills"><svg class="icon" aria-hidden="true"><use href="#i-folder"/></svg><span>Skills</span></a>
-      <a href="#contact" data-open="contact"><svg class="icon" aria-hidden="true"><use href="#i-folder"/></svg><span>Contact</span></a>
+    <nav class="icons" aria-label="Desktop icons">
+      <a href="#music" data-open="music" class="ico ico--music"><svg class="icon" aria-hidden="true"><use href="#i-spotify"/></svg><span>Music</span></a>
+      <a href="#projects" data-open="projects" class="ico ico--projects"><svg class="icon" aria-hidden="true"><use href="#i-folder"/></svg><span>Projects</span></a>
+      <a href="#about" data-open="about" class="ico ico--about"><svg class="icon" aria-hidden="true"><use href="#i-idcard"/></svg><span>About</span></a>
+      <a href="#skills" data-open="skills" class="ico ico--skills"><svg class="icon" aria-hidden="true"><use href="#i-toolbox"/></svg><span>Skills</span></a>
+      <a href="#contact" data-open="contact" class="ico ico--contact"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><span>Contact</span></a>
     </nav>
 
     <nav class="apps" aria-label="Apps">
-      <a href="#about" data-open="about" class="app app--about"><span class="app__tile"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg></span><span>About</span></a>
-      <a href="#skills" data-open="skills" class="app app--skills"><span class="app__tile"><svg class="icon" aria-hidden="true"><use href="#i-chip"/></svg></span><span>Skills</span></a>
+      <a href="#music" data-open="music" class="app app--music"><span class="app__tile"><svg class="icon" aria-hidden="true"><use href="#i-spotify"/></svg><span class="app__playing" aria-hidden="true"><i></i><i></i><i></i></span></span><span>Music</span></a>
+      <a href="#about" data-open="about" class="app app--about"><span class="app__tile"><svg class="icon" aria-hidden="true"><use href="#i-idcard"/></svg></span><span>About</span></a>
+      <a href="#skills" data-open="skills" class="app app--skills"><span class="app__tile"><svg class="icon" aria-hidden="true"><use href="#i-toolbox"/></svg></span><span>Skills</span></a>
       <a href="#projects" data-open="projects" class="app app--projects"><span class="app__tile"><svg class="icon" aria-hidden="true"><use href="#i-folder"/></svg></span><span>Projects <svg class="icon app__star" aria-label="title track" role="img"><use href="#i-star"/></svg></span></a>
       <a href="#contact" data-open="contact" class="app app--contact"><span class="app__tile"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span><span>Contact</span></a>
     </nav>
 
     <section class="win win--about" id="about" aria-labelledby="about-title">
       <div class="win__bar">
+        <div class="win__lights">
+          <button type="button" class="light light--close" data-close="about" aria-label="Close About Me"></button>
+          <button type="button" class="light light--min" data-minimize="about" aria-label="Minimize About Me"></button>
+          <button type="button" class="light light--max" data-maximize="about" aria-label="Maximize About Me"></button>
+        </div>
         <h2 class="win__title" id="about-title">About Me</h2>
-        <a class="win__close" href="#" data-close="about" aria-label="Close About Me"><svg class="icon icon--close" aria-hidden="true"><use href="#i-close"/></svg><svg class="icon icon--back" aria-hidden="true"><use href="#i-back"/></svg><span>Home</span></a>
+        <a class="win__home" href="#" data-close="about" aria-label="Back to home screen"><svg class="icon" aria-hidden="true"><use href="#i-back"/></svg><span>Home</span></a>
       </div>
       <div class="win__body about">
         <img class="about__photo" src="https://i.giphy.com/MZ7yrimhG3DThJqHjl.webp" alt="Animated GIF Mark uses as his profile picture" width="220" height="220" loading="lazy">
@@ -188,8 +239,13 @@
 
     <section class="win win--skills" id="skills" aria-labelledby="skills-title">
       <div class="win__bar">
+        <div class="win__lights">
+          <button type="button" class="light light--close" data-close="skills" aria-label="Close System Info"></button>
+          <button type="button" class="light light--min" data-minimize="skills" aria-label="Minimize System Info"></button>
+          <button type="button" class="light light--max" data-maximize="skills" aria-label="Maximize System Info"></button>
+        </div>
         <h2 class="win__title" id="skills-title">System Info</h2>
-        <a class="win__close" href="#" data-close="skills" aria-label="Close System Info"><svg class="icon icon--close" aria-hidden="true"><use href="#i-close"/></svg><svg class="icon icon--back" aria-hidden="true"><use href="#i-back"/></svg><span>Home</span></a>
+        <a class="win__home" href="#" data-close="skills" aria-label="Back to home screen"><svg class="icon" aria-hidden="true"><use href="#i-back"/></svg><span>Home</span></a>
       </div>
       <div class="win__body sysinfo">
         <p class="sysinfo__lead">What I work with</p>
@@ -243,8 +299,13 @@
 
     <section class="win win--projects" id="projects" aria-labelledby="projects-title">
       <div class="win__bar">
+        <div class="win__lights">
+          <button type="button" class="light light--close" data-close="projects" aria-label="Close Projects"></button>
+          <button type="button" class="light light--min" data-minimize="projects" aria-label="Minimize Projects"></button>
+          <button type="button" class="light light--max" data-maximize="projects" aria-label="Maximize Projects"></button>
+        </div>
         <h2 class="win__title" id="projects-title">Projects</h2>
-        <a class="win__close" href="#" data-close="projects" aria-label="Close Projects"><svg class="icon icon--close" aria-hidden="true"><use href="#i-close"/></svg><svg class="icon icon--back" aria-hidden="true"><use href="#i-back"/></svg><span>Home</span></a>
+        <a class="win__home" href="#" data-close="projects" aria-label="Back to home screen"><svg class="icon" aria-hidden="true"><use href="#i-back"/></svg><span>Home</span></a>
       </div>
       <div class="win__body">
         <ul class="files">
@@ -303,8 +364,13 @@
 
     <section class="win win--contact" id="contact" aria-labelledby="contact-title">
       <div class="win__bar">
+        <div class="win__lights">
+          <button type="button" class="light light--close" data-close="contact" aria-label="Close Contact"></button>
+          <button type="button" class="light light--min" data-minimize="contact" aria-label="Minimize Contact"></button>
+          <button type="button" class="light light--max" data-maximize="contact" aria-label="Maximize Contact"></button>
+        </div>
         <h2 class="win__title" id="contact-title">Contact</h2>
-        <a class="win__close" href="#" data-close="contact" aria-label="Close Contact"><svg class="icon icon--close" aria-hidden="true"><use href="#i-close"/></svg><svg class="icon icon--back" aria-hidden="true"><use href="#i-back"/></svg><span>Home</span></a>
+        <a class="win__home" href="#" data-close="contact" aria-label="Back to home screen"><svg class="icon" aria-hidden="true"><use href="#i-back"/></svg><span>Home</span></a>
       </div>
       <div class="win__body contact">
         <div>
@@ -321,6 +387,15 @@
     </section>
 
   </main>
+
+  <nav class="taskbar" aria-label="Taskbar">
+    <button type="button" class="taskbar__btn" data-task="hello" title="hello.txt" aria-label="hello.txt"><svg class="icon" aria-hidden="true"><use href="#i-doc"/></svg><span class="taskbar__dot" aria-hidden="true"></span></button>
+    <button type="button" class="taskbar__btn" data-task="music" title="Music" aria-label="Music"><svg class="icon" aria-hidden="true"><use href="#i-spotify"/></svg><span class="taskbar__playing" aria-hidden="true"><i></i><i></i><i></i></span><span class="taskbar__dot" aria-hidden="true"></span></button>
+    <button type="button" class="taskbar__btn" data-task="projects" title="Projects" aria-label="Projects"><svg class="icon" aria-hidden="true"><use href="#i-folder"/></svg><span class="taskbar__dot" aria-hidden="true"></span></button>
+    <button type="button" class="taskbar__btn" data-task="about" title="About" aria-label="About"><svg class="icon" aria-hidden="true"><use href="#i-idcard"/></svg><span class="taskbar__dot" aria-hidden="true"></span></button>
+    <button type="button" class="taskbar__btn" data-task="skills" title="Skills" aria-label="Skills"><svg class="icon" aria-hidden="true"><use href="#i-toolbox"/></svg><span class="taskbar__dot" aria-hidden="true"></span></button>
+    <button type="button" class="taskbar__btn" data-task="contact" title="Contact" aria-label="Contact"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><span class="taskbar__dot" aria-hidden="true"></span></button>
+  </nav>
 
   <script type="module" src="js/markos.mjs"></script>
   <script>
