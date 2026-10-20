@@ -1,0 +1,12 @@
+# Claude Code: local tooling, kept out of the repo
+.claude/
+CLAUDE.md
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+
+# Vercel CLI
+.vercel
