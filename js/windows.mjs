@@ -8,6 +8,21 @@ export function clampPosition({ x, y, w }, { width, height, top }) {
   };
 }
 
+export function resizeRect({ x, y, w, h }, edge, dx, dy, min = { w: 320, h: 220 }) {
+  if (edge.includes("e")) w = Math.max(min.w, w + dx);
+  if (edge.includes("s")) h = Math.max(min.h, h + dy);
+  if (edge.includes("w")) { const nw = Math.max(min.w, w - dx); x += w - nw; w = nw; }
+  if (edge.includes("n")) { const nh = Math.max(min.h, h - dy); y += h - nh; h = nh; }
+  return { x, y, w, h };
+}
+
+// What a taskbar click does, like Windows: open, bring back, or tuck away the window in front.
+export function taskbarAction({ open, minimized, focused }) {
+  if (!open) return "open";
+  if (minimized) return "restore";
+  return focused ? "minimize" : "focus";
+}
+
 const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // The window grows out of whatever opened it (icon, track, button) and shrinks back into it.
