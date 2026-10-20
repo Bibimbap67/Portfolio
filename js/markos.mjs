@@ -61,7 +61,7 @@ phone.addEventListener("change", () => setHomeInert(phone.matches && wm.openIds(
 const idFromHash = () => sectionFromHash(location.hash);
 
 let pendingOpener = null;
-let current = idFromHash();
+let current = null;
 
 function route() {
   const id = idFromHash();
@@ -69,6 +69,8 @@ function route() {
   if (!id && current) wm.close(current);
   if (id && phone.matches) wm.openIds().filter((o) => o !== id).forEach(wm.close);
   if (id) wm.open(id, pendingOpener);
+  // #music is a widget on the phone home screen, not a window: just bring it into view.
+  else if (location.hash === "#music") document.getElementById("music").scrollIntoView({ block: "start" });
   current = id;
   pendingOpener = null;
 }
@@ -96,7 +98,7 @@ document.addEventListener("click", (e) => {
 });
 
 addEventListener("hashchange", route);
-if (current) wm.open(current);
+route();
 
 /* ---------- menubar: theme, sound, clock ---------- */
 

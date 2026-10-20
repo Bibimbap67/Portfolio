@@ -312,7 +312,7 @@ html:not(.js) .win__close { display: none; }
   box-shadow: 0 2px 4px rgb(27 23 38 / 0.18), 0 14px 24px -14px rgb(27 23 38 / 0.6);
 }
 .player__album { font-size: 1.45rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
-.player__meta { margin: 2px 0 10px; font-size: 0.85rem; color: var(--text-muted); }
+.player__meta { margin: 2px 0 10px; font-size: 0.85rem; color: var(--text-muted); text-wrap: balance; }
 
 .tracks a {
   display: grid;
@@ -535,7 +535,7 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
 
   html.js #hello    { left: 5vw;  top: 6vh;  width: min(580px, 46vw); }
   /* Music tucks under hello.txt's right edge so the first view reads as stacked windows */
-  html.js #music    { left: calc(5vw + min(580px, 46vw) - 40px); top: 21vh; width: min(480px, 38vw); }
+  html.js #music    { left: calc(5vw + min(580px, 46vw) - 20px); top: 21vh; width: min(480px, 38vw); } /* 20px < hello's 24px padding, so text is never covered */
   html.js #about    { left: 14vw; top: 7vh;  width: min(780px, 72vw); }
   html.js #skills   { left: 18vw; top: 10vh; width: min(720px, 68vw); }
   html.js #projects { left: 8vw;  top: 4vh;  width: min(1000px, 82vw); }
