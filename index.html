@@ -15,7 +15,7 @@
       d.classList.add("js");
       d.dataset.theme = t === "dark" || t === "light" ? t : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
       try {
-        if (sessionStorage.getItem("markos-booted") !== "1" && !matchMedia("(prefers-reduced-motion: reduce)").matches) d.classList.add("boot");
+        if (sessionStorage.getItem("markos-booted") !== "1" && !matchMedia("(prefers-reduced-motion: reduce)").matches) d.classList.add("booting");
       } catch (e) {}
       // If js/markos.mjs fails to run, fall back to the plain readable page.
       document.addEventListener("DOMContentLoaded", function () {

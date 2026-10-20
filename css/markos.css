@@ -25,6 +25,7 @@
   --font-ui: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
   --bar-h: 36px;
+  --task-h: 52px;
   --radius: 12px;
   --dur: 180ms;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -128,24 +129,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .menubar__menu { position: relative; }
 .menubar__menu summary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
   list-style: none;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  padding: 4px 10px;
+  padding: 2px 8px;
   border-radius: 8px;
-  cursor: pointer;
 }
 .menubar__menu summary::-webkit-details-marker { display: none; }
-.menubar__menu summary::before {
-  content: "";
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin-right: 8px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--wall-1), var(--accent));
-  vertical-align: 0;
-}
 .menubar__menu summary:hover,
 .menubar__menu[open] summary { background: var(--tint); }
 .menubar__menu ul {
@@ -220,18 +211,32 @@ html:not(.js) .menubar__toggle { display: none; }
   color: var(--text-muted);
 }
 
-.win__close {
-  display: inline-grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  color: var(--text-muted);
-  text-decoration: none;
+.win__lights { display: none; gap: 8px; padding-right: 4px; }
+.light {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.5px rgb(0 0 0 / 0.18);
 }
-.win__close span, .win__close .icon--back { display: none; }
-.win__close:hover { background: var(--tint); color: var(--text); }
-html:not(.js) .win__close { display: none; }
+.light::before { content: ""; position: absolute; inset: -6px; } /* 24px hit area */
+.light::after {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font: 700 9px/1 var(--font-ui);
+  color: rgb(0 0 0 / 0.55);
+  opacity: 0;
+}
+.light--close { background: #ff5f57; }
+.light--min { background: #febc2e; }
+.light--max { background: #28c840; }
+.light--close::after { content: "\00d7"; }
+.light--min::after { content: "\2212"; }
+.light--max::after { content: "+"; }
+.win__bar:hover .light::after, .light:focus-visible::after { opacity: 1; }
+.win__home { display: none; }
 
 .win__body { padding: 24px; }
 
@@ -289,77 +294,47 @@ html:not(.js) .win__close { display: none; }
   font-size: 0.9rem;
   color: var(--text-muted);
 }
-.status-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  margin-right: 7px;
-  border-radius: 50%;
-  background: var(--ok);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 22%, transparent);
-}
+.hello__facts li { display: inline-flex; align-items: center; gap: 7px; }
+.hello__facts .icon { color: var(--accent); width: 1.15em; height: 1.15em; }
 .hello__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 
-/* ---------- Music ---------- */
+/* ---------- Music (Spotify) ---------- */
 
-.player { display: grid; grid-template-columns: clamp(88px, 11vw, 140px) 1fr; gap: clamp(14px, 1.6vw, 20px); }
-.player__cover {
-  display: block;
+.music { display: flex; flex-direction: column; gap: 12px; }
+.music__search {
   width: 100%;
-  height: auto;
-  aspect-ratio: 1;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgb(27 23 38 / 0.18), 0 14px 24px -14px rgb(27 23 38 / 0.6);
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--edge);
+  border-radius: 10px;
+  background: var(--tint);
+  color: var(--text);
+  font: inherit;
 }
-.player__album { font-size: 1.45rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
-.player__meta { margin: 2px 0 10px; font-size: 0.85rem; color: var(--text-muted); text-wrap: balance; }
-
-.tracks a {
+.music__search:focus-visible { outline-offset: 0; }
+.music__list { max-height: 260px; overflow: auto; margin: 0 -8px; }
+.music__list a {
   display: grid;
-  grid-template-columns: 2.2em 1fr auto;
-  align-items: center;
-  min-height: 40px;
-  padding: 6px 8px;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "title time" "artist time";
+  column-gap: 12px;
+  padding: 8px;
   border-radius: 8px;
   text-decoration: none;
-  transition: background-color var(--dur);
 }
-.tracks a:hover { background: var(--tint); }
-.tracks__n, .tracks__time { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); }
-.tracks__name { display: inline-flex; align-items: center; gap: 6px; }
-.tracks__title { color: var(--accent); font-weight: 600; }
-.tracks__title .icon { fill: currentColor; stroke: none; width: 0.9em; height: 0.9em; }
-.tracks a[aria-current="true"] { background: var(--tint); font-weight: 700; }
-.tracks a[aria-current="true"] .tracks__n { color: var(--accent); }
-
-.player__now {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid var(--edge);
-}
-.player__play {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--text);
-  color: var(--win);
-  flex: none;
-}
-.player__play .icon { fill: currentColor; stroke-width: 2.4; }
-.player__np { flex: 1; min-width: 0; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.player__progress { width: 30%; height: 4px; border-radius: 2px; background: var(--edge); overflow: hidden; }
-.player__progress span {
-  display: block;
-  height: 100%;
-  width: var(--progress, 0%);
-  background: var(--accent);
-  transition: width 400ms var(--ease-out);
-}
+.music__list a:hover { background: var(--tint); }
+.music__list a[aria-current="true"] { background: var(--tint); }
+.music__list a[aria-current="true"] .music__title { color: #1db954; }
+[data-theme="dark"] .music__list a[aria-current="true"] .music__title { color: #1ed760; }
+.music__title { grid-area: title; font-weight: 600; }
+.music__artist { grid-area: artist; font-size: 0.85rem; color: var(--text-muted); }
+.music__time { grid-area: time; align-self: center; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); }
+.music__empty { color: var(--text-muted); }
+.music__player:empty { display: none; }
+.music__player iframe { display: block; width: 100%; border: 0; border-radius: 12px; }
+.music__open { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; text-decoration: none; }
+.music__open .icon { color: #1db954; }
+.icon .fill, .icon:has(use[href="#i-spotify"]) { fill: currentColor; stroke: none; }
 
 /* ---------- sticky note + desktop icons + phone apps (desktop/phone only) ---------- */
 
@@ -391,9 +366,13 @@ html:not(.js) .win__close { display: none; }
 }
 .icons a:hover, .icons a:focus-visible { background: color-mix(in srgb, var(--win) 45%, transparent); }
 .icons .icon { width: 52px; height: 52px; fill: var(--folder); stroke: var(--folder-edge); stroke-width: 1.2; }
+.ico--about .icon { fill: #d3dbff; stroke: #4a5bb8; }
+.ico--skills .icon { fill: #fff0a8; stroke: #8a6a12; }
+.ico--contact .icon { fill: #fbdcee; stroke: #ad2d6c; }
+.ico--music .icon { fill: #1db954; stroke: none; width: 46px; height: 46px; margin: 3px; }
 .icons span { padding: 0 6px; border-radius: 4px; background: color-mix(in srgb, var(--win) 55%, transparent); }
 
-.note, .icons, .apps { display: none; }
+.note, .icons, .apps, .taskbar { display: none; }
 
 /* ---------- About ---------- */
 
@@ -511,7 +490,7 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
 
   html.js .desktop {
     position: fixed;
-    inset: var(--bar-h) 0 0 0;
+    inset: var(--bar-h) 0 var(--task-h) 0;
     max-width: none;
     margin: 0;
     padding: 0;
@@ -530,12 +509,31 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
   html.js .win.is-focused { box-shadow: var(--shadow-focus); }
   html.js .win.is-focused .win__title { color: var(--text); }
 
-  html.js .win:not(.is-open):not(#hello):not(#music) { display: none; }
-  html.js #music .win__close { display: none; }
+  html.js .win:not(.is-open), html.js .win.is-minimized { display: none; }
+  html.js .win__lights { display: flex; }
+  html.js .win.is-maximized {
+    inset: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    max-height: none;
+    border-radius: 0;
+  }
+  html.js .win.is-maximized .win__bar { cursor: default; }
+  html.js .win.is-maximized .win__resize { display: none; }
+  html.js .win__resize { position: absolute; z-index: 2; }
+  html.js .win__resize--n, html.js .win__resize--s { left: 12px; right: 12px; height: 6px; cursor: ns-resize; }
+  html.js .win__resize--e, html.js .win__resize--w { top: 12px; bottom: 12px; width: 6px; cursor: ew-resize; }
+  html.js .win__resize--n { top: -3px; } html.js .win__resize--s { bottom: -3px; }
+  html.js .win__resize--e { right: -3px; } html.js .win__resize--w { left: -3px; }
+  html.js .win__resize--ne, html.js .win__resize--nw, html.js .win__resize--se, html.js .win__resize--sw { width: 14px; height: 14px; }
+  html.js .win__resize--ne { top: -4px; right: -4px; cursor: nesw-resize; }
+  html.js .win__resize--sw { bottom: -4px; left: -4px; cursor: nesw-resize; }
+  html.js .win__resize--nw { top: -4px; left: -4px; cursor: nwse-resize; }
+  html.js .win__resize--se { bottom: -4px; right: -4px; cursor: nwse-resize; }
 
   html.js #hello    { left: 5vw;  top: 6vh;  width: min(580px, 46vw); }
   /* Music tucks under hello.txt's right edge so the first view reads as stacked windows */
-  html.js #music    { left: calc(5vw + min(580px, 46vw) - 20px); top: 21vh; width: min(480px, 38vw); } /* 20px < hello's 24px padding, so text is never covered */
+  html.js #music    { left: 50vw; top: 9vh; width: min(440px, 40vw); }
   html.js #about    { left: 14vw; top: 7vh;  width: min(780px, 72vw); }
   html.js #skills   { left: 18vw; top: 10vh; width: min(720px, 68vw); }
   html.js #projects { left: 8vw;  top: 4vh;  width: min(1000px, 82vw); }
@@ -551,6 +549,47 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
     top: 20px;
     right: 18px;
   }
+
+  /* taskbar, like the Windows one: centred apps, a dot under each open window */
+  html.js .taskbar {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 1000;
+    height: var(--task-h);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: color-mix(in srgb, var(--win) 72%, transparent);
+    backdrop-filter: blur(14px) saturate(1.4);
+    border-top: 1px solid var(--edge);
+  }
+  html.js .taskbar__btn {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    transition: background-color var(--dur);
+  }
+  html.js .taskbar__btn:hover, html.js .taskbar__btn.is-focused { background: var(--tint); }
+  html.js .taskbar__btn .icon { width: 26px; height: 26px; }
+  html.js .taskbar__btn[data-task="music"] .icon { color: #1db954; }
+  html.js .taskbar__dot {
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    width: 5px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--text-muted);
+    translate: -50% 0;
+    opacity: 0;
+    transition: width var(--dur) var(--ease-out), opacity var(--dur);
+  }
+  html.js .taskbar__btn.is-open .taskbar__dot { opacity: 1; }
+  html.js .taskbar__btn.is-focused .taskbar__dot { width: 14px; background: var(--accent); }
 }
 
 /* Small desktops have no free wall space for the note; drop it rather than bury it under hello.txt. */
@@ -567,13 +606,6 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
   .hello__photo figcaption { display: none; }
   .hello__name { font-size: clamp(2rem, 9vw, 2.6rem); }
   .hello__line { font-size: 1.02rem; }
-  .player { grid-template-columns: 96px 1fr; gap: 14px; }
-  .player__info { display: contents; }
-  .player__album, .player__meta { grid-column: 2; }
-  .player__album { align-self: end; }
-  .player__meta { align-self: start; }
-  .player__cover { grid-row: 1 / span 2; }
-  .tracks, .player__now { grid-column: 1 / -1; }
   .about, .contact { grid-template-columns: 1fr; }
   .about__photo { width: 140px; }
   .about__rows div, .sysinfo__row { grid-template-columns: 1fr; gap: 4px; }
@@ -588,7 +620,7 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
   html.js .menubar { position: fixed; inset: 0 0 auto 0; }
   html.js .menubar__menu summary { display: inline-flex; align-items: center; min-height: 44px; }
   html.js .menubar__toggle { min-width: 44px; min-height: 44px; justify-content: center; padding: 2px 8px; }
-  html.js .tracks a, html.js .contact__links a { min-height: 48px; }
+  html.js .music__list a, html.js .contact__links a { min-height: 48px; }
   html.js .menubar__menu a { display: flex; align-items: center; min-height: 44px; }
   html.js .menubar__toggle span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 
@@ -600,18 +632,15 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
 
   /* hello.txt becomes the home-screen widget */
   html.js #hello { border-radius: 22px; }
-  html.js #hello .win__bar, html.js #music .win__bar { display: none; }
-
-  /* home screen order: hello widget, apps, then the album as a now-playing widget */
-  html.js #hello, html.js #music { border-radius: 22px; }
-  html.js .apps { order: 1; }
-  html.js #music { order: 2; }
+  html.js #hello { display: block; }
+  html.js #hello .win__bar { display: none; }
+  html.js .win__resize { display: none; }
   html.js .hello__actions .btn { flex: 1; justify-content: center; }
 
   html.js .apps {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 22px 4px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 22px 2px;
     justify-items: center;
   }
   html.js .app {
@@ -619,8 +648,9 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
     flex-direction: column;
     align-items: center;
     gap: 6px;
-    width: 76px;
-    font-size: 0.8rem;
+    width: 100%;
+    min-width: 0;
+    font-size: 0.75rem;
     font-weight: 600;
     text-align: center;
     text-decoration: none;
@@ -628,9 +658,9 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
   html.js .app__tile {
     display: grid;
     place-items: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 16px;
+    width: 54px;
+    height: 54px;
+    border-radius: 15px;
     color: #ffffff;
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.12), 0 10px 18px -10px rgb(40 24 70 / 0.55);
     transition: transform var(--dur) var(--ease-out);
@@ -638,17 +668,18 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
   html.js .app:active .app__tile { transform: scale(0.94); }
   html.js .app__tile .icon { width: 28px; height: 28px; stroke-width: 2; }
   /* tiles come from the wallpaper's own hues; berry is reserved for the title track */
+  html.js .app--music .app__tile { position: relative; background: linear-gradient(160deg, #1ed760, #179443); }
+  html.js .app--music .app__tile .icon { fill: currentColor; stroke: none; }
   html.js .app--about .app__tile { background: linear-gradient(160deg, #d3dbff, #8e9cf0); color: #1b1726; }
   html.js .app--skills .app__tile { background: linear-gradient(160deg, #fff6c8, #f2d36a); color: #1b1726; }
   html.js .app--projects .app__tile { background: linear-gradient(160deg, #d9468a, #ad2d6c); }
   html.js .app--contact .app__tile { background: linear-gradient(160deg, #fbdcee, #ee9fcc); color: #1b1726; }
   html.js .app__star { width: 0.85em; height: 0.85em; fill: var(--accent); stroke: none; }
-  html.js #music .player__album { font-size: 1.2rem; }
-  html.js .app span:last-child { white-space: nowrap; padding: 0 6px; border-radius: 4px; background: color-mix(in srgb, var(--win) 55%, transparent); }
+  html.js .app span:last-child { white-space: nowrap; padding: 0 4px; border-radius: 4px; background: color-mix(in srgb, var(--win) 55%, transparent); }
 
   /* opened apps take the whole screen under the status bar */
-  html.js .win:not(#hello):not(#music):not(.is-open) { display: none; }
-  html.js .win.is-open {
+  html.js .win:not(#hello):not(.is-open), html.js .win.is-minimized:not(#hello) { display: none; }
+  html.js .win.is-open:not(#hello) {
     position: fixed;
     inset: var(--bar-h) 0 0 0;
     z-index: 900;
@@ -660,19 +691,18 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
   html.js .win.is-open .win__body { flex: 1; overflow: auto; overscroll-behavior: contain; }
   html.js .win__bar { padding: 4px 16px 4px 6px; }
   html.js .win__title { text-align: center; padding-right: 72px; }
-  html.js .win__close {
+  html.js .win__home {
     order: -1;
     display: inline-flex;
     align-items: center;
     gap: 2px;
-    width: auto;
     min-height: 44px;
     padding: 0 10px 0 4px;
     color: var(--accent);
     font-weight: 600;
+    text-decoration: none;
   }
-  html.js .win__close span, html.js .win__close .icon--back { display: inline; }
-  html.js .win__close .icon--close { display: none; }
+  html.js .win__lights { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -681,4 +711,99 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ---------- boot screen (first visit per session; JS only) ---------- */
+
+.boot { display: none; }
+html.js.booting { overflow: hidden; }
+html.js.booting .boot {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: grid;
+  grid-template-areas: "wheel" "name" "bar" "line";
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  background: #120f1a;
+  color: #f4f0fa;
+  transition: opacity 260ms var(--ease-out);
+}
+html.js.booting.booting-out .boot { opacity: 0; }
+.boot__wheel, .boot__runner { grid-area: wheel; }
+.boot__wheel { width: 132px; height: 132px; color: #f6a3cf; animation: wheel-spin 1.1s linear infinite; }
+.boot__runner { align-self: end; margin-bottom: 16px; animation: runner-hop 0.28s ease-in-out infinite alternate; }
+.boot__runner .hamster { width: 54px; height: auto; }
+.boot__name { grid-area: name; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em; }
+.boot__bar { grid-area: bar; width: 180px; height: 4px; border-radius: 2px; background: rgb(255 255 255 / 0.15); overflow: hidden; }
+.boot__bar span { display: block; width: 0; height: 100%; background: #f6a3cf; animation: boot-fill 1.4s var(--ease-out) forwards; }
+.boot__line { grid-area: line; min-height: 1.4em; font-family: var(--font-mono); font-size: 0.85rem; color: #b6aec6; }
+@keyframes wheel-spin { to { rotate: 1turn; } }
+@keyframes runner-hop { to { translate: 0 -4px; } }
+@keyframes boot-fill { to { width: 100%; } }
+
+/* ---------- hamster mascot (menubar) ---------- */
+
+.hamster { width: 34px; height: 27px; overflow: visible; }
+.hamster__body { transform-origin: 20px 30px; animation: hamster-breathe 3.2s ease-in-out infinite; }
+.hamster__eyes { transform-origin: 20px 16.5px; animation: hamster-blink 5s infinite; }
+.hamster__ear--l { transform-origin: 11px 12px; animation: hamster-twitch 7s infinite; }
+.hamster__bubble {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  padding: 8px 12px;
+  background: var(--win);
+  color: var(--text);
+  border: 1px solid var(--edge);
+  border-radius: 12px 12px 12px 4px;
+  box-shadow: var(--shadow);
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  translate: 0 -4px;
+  pointer-events: none;
+  transition: opacity 180ms, translate 180ms var(--ease-out);
+}
+.menubar__menu.is-talking .hamster__bubble { opacity: 1; translate: 0 0; }
+.menubar__menu[open] .hamster__bubble { opacity: 0; }
+.menubar__menu.is-talking .hamster__mouth { animation: hamster-talk 0.22s ease-in-out infinite alternate; }
+@keyframes hamster-breathe { 50% { transform: scale(1.03, 0.97); } }
+@keyframes hamster-blink { 0%, 94%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.1); } }
+@keyframes hamster-twitch { 0%, 88%, 100% { rotate: 0deg; } 91% { rotate: -14deg; } 94% { rotate: 6deg; } }
+@keyframes hamster-talk { to { d: path("M17.8 22.4q2.2 3.4 4.4 0"); } }
+
+/* ---------- "playing" equaliser on the Music taskbar button / phone tile ---------- */
+
+.taskbar__playing, .app__playing {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: none;
+  gap: 1.5px;
+  align-items: flex-end;
+  height: 10px;
+}
+.is-playing .taskbar__playing, .is-playing .app__playing { display: inline-flex; }
+.taskbar__playing i, .app__playing i {
+  width: 2.5px;
+  height: 100%;
+  border-radius: 1px;
+  background: #1db954;
+  transform-origin: bottom;
+  animation: eq 0.8s ease-in-out infinite alternate;
+}
+.app__playing i { background: #ffffff; }
+.taskbar__playing i:nth-child(2), .app__playing i:nth-child(2) { animation-delay: -0.3s; }
+.taskbar__playing i:nth-child(3), .app__playing i:nth-child(3) { animation-delay: -0.55s; }
+@keyframes eq { from { scale: 1 0.3; } to { scale: 1 1; } }
+
+/* ---------- cursor: Mark's own arrow on desktop pointers ---------- */
+
+@media (pointer: fine) {
+  html { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M3 2l14 9.5-6.2 1.3 3.8 7.5-2.8 1.4-3.8-7.6L3 18.5z' fill='%23fff' stroke='%23ad2d6c' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") 3 2, auto; }
+  a, button, summary, label, .ico, .app { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M3 2l14 9.5-6.2 1.3 3.8 7.5-2.8 1.4-3.8-7.6L3 18.5z' fill='%23ad2d6c' stroke='%23fff' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") 3 2, pointer; }
+  input, textarea { cursor: text; }
 }
