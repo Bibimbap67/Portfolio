@@ -274,7 +274,7 @@ html:not(.js) .win__close { display: none; }
 .hello__hi {
   display: block;
   margin-bottom: 0.12em;
-  font-size: 0.42em;
+  font-size: clamp(1rem, 1.8vw, 1.5rem);
   font-weight: 400;
   letter-spacing: -0.01em;
   color: var(--text-muted);
