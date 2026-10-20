@@ -1,4 +1,8 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/(about|skills|projects|contact)(\\.html)?", "destination": "/#$1", "permanent": true },
+    { "source": "/home(\\.html)?", "destination": "/", "permanent": true }
+  ]
 }
