@@ -18,7 +18,6 @@
   --note-ink: #2a2414;
   --folder: #8a9cf0;
   --folder-edge: #4a5bb8;
-  --ok: #2f8a4c;
   --shadow: 0 2px 6px rgb(40 24 70 / 0.08), 0 22px 44px -20px rgb(40 24 70 / 0.38);
   --shadow-focus: 0 2px 8px rgb(40 24 70 / 0.1), 0 30px 60px -22px rgb(40 24 70 / 0.5);
 
@@ -49,7 +48,6 @@
   --note: #f1df8a;
   --folder: #93a3f2;
   --folder-edge: #c9d1ff;
-  --ok: #6fd18f;
   --shadow: 0 2px 6px rgb(0 0 0 / 0.3), 0 22px 44px -20px rgb(0 0 0 / 0.7);
   --shadow-focus: 0 2px 8px rgb(0 0 0 / 0.35), 0 30px 60px -22px rgb(0 0 0 / 0.85);
 
@@ -324,8 +322,7 @@ html:not(.js) .menubar__toggle { display: none; }
 }
 .music__list a:hover { background: var(--tint); }
 .music__list a[aria-current="true"] { background: var(--tint); }
-.music__list a[aria-current="true"] .music__title { color: #1db954; }
-[data-theme="dark"] .music__list a[aria-current="true"] .music__title { color: #1ed760; }
+.music__list a[aria-current="true"] .music__title { color: var(--accent); } /* berry marks "current"; Spotify green stays on the logo */
 .music__title { grid-area: title; font-weight: 600; }
 .music__artist { grid-area: artist; font-size: 0.85rem; color: var(--text-muted); }
 .music__time { grid-area: time; align-self: center; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); }
@@ -685,7 +682,7 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
   }
   html.js .app:active .app__tile { transform: scale(0.94); }
   html.js .app__tile .icon { width: 28px; height: 28px; stroke-width: 2; }
-  /* tiles come from the wallpaper's own hues; berry is reserved for the title track */
+  /* tiles come from the wallpaper's own hues; berry is reserved for starred Projects */
   html.js .app--music .app__tile { position: relative; background: #1ed760; color: #121212; } /* Spotify's own: flat green, black mark */
   html.js .app--music .app__tile .icon { fill: currentColor; stroke: none; }
   html.js .app--about .app__tile { background: linear-gradient(160deg, #d3dbff, #8e9cf0); color: #1b1726; }

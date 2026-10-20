@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-20T15:07:17.136Z",
+  "generatedAt": "2026-10-20T19:54:35.871Z",
   "title": "Design System: markOS",
   "extensions": {
     "colorMeta": {
@@ -219,19 +219,154 @@
           "oklch(95% 0.147 272.3)"
         ]
       },
-      "online-green": {
+      "icon-periwinkle": {
         "role": "secondary",
-        "displayName": "Online Green",
-        "canonical": "#2f8a4c",
+        "displayName": "Icon Periwinkle",
+        "canonical": "#d3dbff",
         "tonalRamp": [
-          "oklch(15% 0.128 150.5)",
-          "oklch(26% 0.128 150.5)",
-          "oklch(37% 0.128 150.5)",
-          "oklch(48% 0.128 150.5)",
-          "oklch(60% 0.128 150.5)",
-          "oklch(72% 0.128 150.5)",
-          "oklch(84% 0.128 150.5)",
-          "oklch(95% 0.128 150.5)"
+          "oklch(15% 0.050 275.5)",
+          "oklch(26% 0.050 275.5)",
+          "oklch(37% 0.050 275.5)",
+          "oklch(48% 0.050 275.5)",
+          "oklch(60% 0.050 275.5)",
+          "oklch(72% 0.050 275.5)",
+          "oklch(84% 0.050 275.5)",
+          "oklch(95% 0.050 275.5)"
+        ]
+      },
+      "icon-pink": {
+        "role": "secondary",
+        "displayName": "Icon Pink",
+        "canonical": "#fbdcee",
+        "tonalRamp": [
+          "oklch(15% 0.041 342.2)",
+          "oklch(26% 0.041 342.2)",
+          "oklch(37% 0.041 342.2)",
+          "oklch(48% 0.041 342.2)",
+          "oklch(60% 0.041 342.2)",
+          "oklch(72% 0.041 342.2)",
+          "oklch(84% 0.041 342.2)",
+          "oklch(95% 0.041 342.2)"
+        ]
+      },
+      "icon-butter-edge": {
+        "role": "secondary",
+        "displayName": "Icon Butter Edge",
+        "canonical": "#8a6a12",
+        "tonalRamp": [
+          "oklch(15% 0.105 86.3)",
+          "oklch(26% 0.105 86.3)",
+          "oklch(37% 0.105 86.3)",
+          "oklch(48% 0.105 86.3)",
+          "oklch(60% 0.105 86.3)",
+          "oklch(72% 0.105 86.3)",
+          "oklch(84% 0.105 86.3)",
+          "oklch(95% 0.105 86.3)"
+        ]
+      },
+      "light-close": {
+        "role": "tertiary",
+        "displayName": "Traffic Light Close",
+        "canonical": "#ff5f57",
+        "tonalRamp": [
+          "oklch(15% 0.196 26.4)",
+          "oklch(26% 0.196 26.4)",
+          "oklch(37% 0.196 26.4)",
+          "oklch(48% 0.196 26.4)",
+          "oklch(60% 0.196 26.4)",
+          "oklch(72% 0.196 26.4)",
+          "oklch(84% 0.196 26.4)",
+          "oklch(95% 0.196 26.4)"
+        ]
+      },
+      "light-min": {
+        "role": "tertiary",
+        "displayName": "Traffic Light Minimize",
+        "canonical": "#febc2e",
+        "tonalRamp": [
+          "oklch(15% 0.161 80.9)",
+          "oklch(26% 0.161 80.9)",
+          "oklch(37% 0.161 80.9)",
+          "oklch(48% 0.161 80.9)",
+          "oklch(60% 0.161 80.9)",
+          "oklch(72% 0.161 80.9)",
+          "oklch(84% 0.161 80.9)",
+          "oklch(95% 0.161 80.9)"
+        ]
+      },
+      "light-max": {
+        "role": "tertiary",
+        "displayName": "Traffic Light Maximize",
+        "canonical": "#28c840",
+        "tonalRamp": [
+          "oklch(15% 0.217 144.7)",
+          "oklch(26% 0.217 144.7)",
+          "oklch(37% 0.217 144.7)",
+          "oklch(48% 0.217 144.7)",
+          "oklch(60% 0.217 144.7)",
+          "oklch(72% 0.217 144.7)",
+          "oklch(84% 0.217 144.7)",
+          "oklch(95% 0.217 144.7)"
+        ]
+      },
+      "spotify-green": {
+        "role": "tertiary",
+        "displayName": "Spotify Green",
+        "canonical": "#1ed760",
+        "tonalRamp": [
+          "oklch(15% 0.212 148.7)",
+          "oklch(26% 0.212 148.7)",
+          "oklch(37% 0.212 148.7)",
+          "oklch(48% 0.212 148.7)",
+          "oklch(60% 0.212 148.7)",
+          "oklch(72% 0.212 148.7)",
+          "oklch(84% 0.212 148.7)",
+          "oklch(95% 0.212 148.7)"
+        ]
+      },
+      "spotify-ink": {
+        "role": "tertiary",
+        "displayName": "Spotify Ink",
+        "canonical": "#121212",
+        "tonalRamp": [
+          "oklch(15% 0.000 89.9)",
+          "oklch(26% 0.000 89.9)",
+          "oklch(37% 0.000 89.9)",
+          "oklch(48% 0.000 89.9)",
+          "oklch(60% 0.000 89.9)",
+          "oklch(72% 0.000 89.9)",
+          "oklch(84% 0.000 89.9)",
+          "oklch(95% 0.000 89.9)"
+        ]
+      },
+      "boot-field": {
+        "role": "neutral",
+        "displayName": "Boot Field",
+        "canonical": "#120f1a",
+        "tonalRamp": [
+          "oklch(15% 0.023 296.5)",
+          "oklch(26% 0.023 296.5)",
+          "oklch(37% 0.023 296.5)",
+          "oklch(48% 0.023 296.5)",
+          "oklch(60% 0.023 296.5)",
+          "oklch(72% 0.023 296.5)",
+          "oklch(84% 0.023 296.5)",
+          "oklch(95% 0.023 296.5)"
+        ]
+      },
+      "hamster-fur": {
+        "role": "neutral",
+        "displayName": "Hamster Fur",
+        "canonical": "#e8a46a",
+        "tonalRamp": [
+          "oklch(15% 0.110 60.6)",
+          "oklch(26% 0.110 60.6)",
+          "oklch(37% 0.110 60.6)",
+          "oklch(48% 0.110 60.6)",
+          "oklch(60% 0.110 60.6)",
+          "oklch(72% 0.110 60.6)",
+          "oklch(84% 0.110 60.6)",
+          "oklch(95% 0.110 60.6)"
         ]
       },
       "night-berry": {
@@ -386,7 +521,7 @@
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Album title, System Info lead, project file names."
+        "purpose": "System Info lead, boot screen name, project file names."
       },
       "body": {
         "displayName": "Body",
@@ -394,11 +529,11 @@
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Buttons, definition terms, icon labels, toggles."
+        "purpose": "Buttons, song titles, the hamster's bubble, definition terms, icon labels, toggles."
       },
       "data": {
         "displayName": "Data (mono)",
-        "purpose": "Window titles, clock, track numbers and durations only."
+        "purpose": "Window titles, clock, song durations and the boot status line only."
       }
     },
     "themes": {
@@ -410,7 +545,7 @@
         "name": "window",
         "value": "0 2px 6px rgb(40 24 70 / 0.08), 0 22px 44px -20px rgb(40 24 70 / 0.38)",
         "dark": "0 2px 6px rgb(0 0 0 / 0.3), 0 22px 44px -20px rgb(0 0 0 / 0.7)",
-        "purpose": "Windows at rest, menus, lifted project thumbnails."
+        "purpose": "Windows at rest, menus, the hamster's speech bubble, lifted project thumbnails."
       },
       {
         "name": "window-focus",
@@ -424,11 +559,6 @@
         "purpose": "Sticky note."
       },
       {
-        "name": "album-cover",
-        "value": "0 2px 4px rgb(27 23 38 / 0.18), 0 14px 24px -14px rgb(27 23 38 / 0.6)",
-        "purpose": "Music cover art."
-      },
-      {
         "name": "app-tile",
         "value": "0 1px 2px rgb(0 0 0 / 0.12), 0 10px 18px -10px rgb(40 24 70 / 0.55)",
         "purpose": "Phone home-screen tiles."
@@ -438,31 +568,46 @@
       {
         "name": "ease-out",
         "value": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Window open, button press, thumbnail lift, progress fill."
+        "purpose": "Window open and restore, button press, thumbnail lift, taskbar dot, bubble, boot fill and fade."
       },
       {
         "name": "ease-in-close",
         "value": "cubic-bezier(0.5, 0, 0.75, 0)",
-        "purpose": "Window close."
+        "purpose": "Window close and minimize."
       },
       {
         "name": "dur",
         "value": "180ms",
-        "purpose": "Hover and press state transitions."
+        "purpose": "Hover and press state transitions, taskbar dot width, hamster bubble."
       },
       {
         "name": "window-open",
         "value": "300ms; scale 0.55 to 1, blur 8px to 0, opacity 0 to 1, grown from the opener",
-        "purpose": "Opening a window from a track, icon, link or app."
+        "purpose": "Opening a window from an icon, taskbar button, link or app; restoring from the taskbar."
       },
       {
         "name": "window-close",
         "value": "170ms; reverse of open",
-        "purpose": "Closing a window."
+        "purpose": "Closing a window, or minimizing it toward its taskbar icon."
+      },
+      {
+        "name": "boot",
+        "value": "wheel 1.1s linear loop; progress fill 1.4s ease-out; overlay fade 260ms ease-out",
+        "purpose": "Boot screen, once per session, skippable by any input."
+      },
+      {
+        "name": "hamster-idle",
+        "value": "breathe 3.2s, blink 5s, ear twitch 7s; mouth 0.22s alternate while talking",
+        "purpose": "Menubar mascot."
+      },
+      {
+        "name": "equaliser",
+        "value": "0.8s ease-in-out alternate, bars offset -0.3s and -0.55s, scaleY 0.3 to 1",
+        "purpose": "Playing indicator on the Music taskbar button and phone tile."
       },
       {
         "name": "reduced-motion",
-        "value": "opacity only, 120ms in / 100ms out; CSS transitions forced to 0.01ms",
+        "value": "opacity only, 120ms in / 100ms out; CSS animations and transitions forced to 0.01ms",
         "purpose": "prefers-reduced-motion: reduce."
       }
     ],
@@ -470,24 +615,53 @@
       {
         "name": "phone",
         "value": "max-width: 720px",
-        "purpose": "Single column; with JS, a home screen with full-screen apps."
+        "purpose": "Single column; with JS, a home screen with full-screen apps and no taskbar."
       },
       {
         "name": "desktop",
         "value": "min-width: 721px",
-        "purpose": "With JS, the positioned window desktop."
+        "purpose": "With JS, the positioned window desktop with menubar and taskbar."
+      },
+      {
+        "name": "small-desktop",
+        "value": "min-width: 721px and (max-width: 1100px or max-height: 760px)",
+        "purpose": "Sticky note hidden; hello.txt compacts."
+      },
+      {
+        "name": "fine-pointer",
+        "value": "pointer: fine",
+        "purpose": "Custom arrow and hand cursors."
       }
     ],
     "surfaces": [
       {
         "name": "menubar",
-        "value": "color-mix(in srgb, var(--win) 72%, transparent); backdrop-filter: blur(14px) saturate(1.4)"
+        "value": "36px; color-mix(in srgb, var(--win) 72%, transparent); backdrop-filter: blur(14px) saturate(1.4); 1px edge below"
+      },
+      {
+        "name": "taskbar",
+        "value": "52px; color-mix(in srgb, var(--win) 72%, transparent); backdrop-filter: blur(14px) saturate(1.4); 1px edge above"
       },
       {
         "name": "wallpaper",
         "value": "linear-gradient(135deg, var(--wall-1), var(--wall-2) 55%, var(--wall-3)) fixed, plus SVG fractalNoise grain at 0.55 opacity, overlay blend"
+      },
+      {
+        "name": "boot",
+        "value": "#120f1a full-screen overlay, z-index 5000"
       }
-    ]
+    ],
+    "windowStates": {
+      "minSize": "320x220",
+      "resizeHandles": "8: 6px edge strips inset 12px from corners, 14px corner squares, inside the window edge",
+      "maximized": "fills the desktop between menubar and taskbar, radius 0, no drag or resize",
+      "minimized": "hidden; taskbar dot stays lit"
+    },
+    "cursors": {
+      "arrow": "white arrow, 1.6px #ad2d6c outline, hotspot 3 2, fallback auto",
+      "hand": "white pointer hand, 1.6px #ad2d6c outline, hotspot 10 3, fallback pointer",
+      "scope": "@media (pointer: fine); inputs keep the I-beam, handles the native resize cursors"
+    }
   },
   "components": [
     {
@@ -510,25 +684,33 @@
       "name": "Window",
       "kind": "card",
       "refersTo": "window",
-      "description": "Every section is a window with a mono filename titlebar; hover here previews the focused state.",
-      "html": "<section class=\"ds-win\"><div class=\"ds-win-bar\"><p class=\"ds-win-title\">hello.txt</p><button class=\"ds-win-close\" aria-label=\"Close\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\"><path d=\"M6 6l12 12M18 6L6 18\"/></svg></button></div><div class=\"ds-win-body\"><p>Hi, I'm Mark Panolin.</p></div></section>",
-      "css": ".ds-win{max-width:420px;background:#fff;border:1px solid rgb(27 23 38 / .14);border-radius:12px;overflow:hidden;box-shadow:0 2px 6px rgb(40 24 70 / .08),0 22px 44px -20px rgb(40 24 70 / .38);font:400 1rem/1.55 \"Bricolage Grotesque\",system-ui,sans-serif;color:#1b1726}.ds-win:hover{box-shadow:0 2px 8px rgb(40 24 70 / .1),0 30px 60px -22px rgb(40 24 70 / .5)}.ds-win:hover .ds-win-title{color:#1b1726}.ds-win-bar{display:flex;align-items:center;gap:10px;min-height:40px;padding:6px 8px 6px 16px;background:#f5f3fb;border-bottom:1px solid rgb(27 23 38 / .14)}.ds-win-title{flex:1;margin:0;font:500 .85rem \"IBM Plex Mono\",ui-monospace,monospace;color:#5a536a}.ds-win-close{display:grid;place-items:center;width:30px;height:30px;border:0;border-radius:8px;background:none;color:#5a536a;cursor:pointer}.ds-win-close:hover{background:#efeaf8;color:#1b1726}.ds-win-close:focus-visible{outline:2px solid #ad2d6c;outline-offset:2px}.ds-win-body{padding:24px}.ds-win-body p{margin:0}"
+      "description": "Every section is a window with traffic lights and a mono filename titlebar; hover previews the focused state and the light glyphs.",
+      "html": "<section class=\"ds-win\"><div class=\"ds-win-bar\"><span class=\"ds-lights\"><button class=\"ds-light ds-light-close\" aria-label=\"Close hello.txt\"></button><button class=\"ds-light ds-light-min\" aria-label=\"Minimize hello.txt\"></button><button class=\"ds-light ds-light-max\" aria-label=\"Maximize hello.txt\"></button></span><p class=\"ds-win-title\">hello.txt</p></div><div class=\"ds-win-body\"><p>Hi, I&#39;m Mark Panolin.</p></div></section>",
+      "css": ".ds-win{max-width:420px;background:#fff;border:1px solid rgb(27 23 38 / .14);border-radius:12px;overflow:hidden;box-shadow:0 2px 6px rgb(40 24 70 / .08),0 22px 44px -20px rgb(40 24 70 / .38);font:400 1rem/1.55 \"Bricolage Grotesque\",system-ui,sans-serif;color:#1b1726}.ds-win:hover{box-shadow:0 2px 8px rgb(40 24 70 / .1),0 30px 60px -22px rgb(40 24 70 / .5)}.ds-win:hover .ds-win-title{color:#1b1726}.ds-win-bar{display:flex;align-items:center;gap:10px;min-height:40px;padding:6px 8px 6px 16px;background:#f5f3fb;border-bottom:1px solid rgb(27 23 38 / .14)}.ds-lights{display:flex;gap:8px;padding-right:4px}.ds-light{position:relative;width:12px;height:12px;padding:0;border:0;border-radius:50%;box-shadow:inset 0 0 0 .5px rgb(0 0 0 / .18);cursor:pointer}.ds-light::after{position:absolute;inset:0;display:grid;place-items:center;font:700 9px/1 \"Bricolage Grotesque\",system-ui,sans-serif;color:rgb(0 0 0 / .55);opacity:0}.ds-light-close{background:#ff5f57}.ds-light-min{background:#febc2e}.ds-light-max{background:#28c840}.ds-light-close::after{content:\"\\00d7\"}.ds-light-min::after{content:\"\\2212\"}.ds-light-max::after{content:\"+\"}.ds-win-bar:hover .ds-light::after,.ds-light:focus-visible::after{opacity:1}.ds-light:focus-visible{outline:2px solid #ad2d6c;outline-offset:2px}.ds-win-title{flex:1;margin:0;font:500 .85rem \"IBM Plex Mono\",ui-monospace,monospace;color:#5a536a}.ds-win-body{padding:24px}.ds-win-body p{margin:0}"
     },
     {
       "name": "Menubar",
       "kind": "nav",
       "refersTo": null,
-      "description": "Translucent top bar: markOS menu, mono clock, theme and sound toggles.",
-      "html": "<header class=\"ds-bar\"><span class=\"ds-bar-menu\">markOS</span><span class=\"ds-bar-status\"><span class=\"ds-bar-clock\">Tue 11:03 PM</span><button class=\"ds-bar-toggle\">Dark</button><button class=\"ds-bar-toggle\" aria-pressed=\"true\">Sound</button></span></header>",
-      "css": ".ds-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:36px;padding:0 12px;font:400 .9rem \"Bricolage Grotesque\",system-ui,sans-serif;color:#1b1726;background:color-mix(in srgb,#fff 72%,transparent);backdrop-filter:blur(14px) saturate(1.4);border-bottom:1px solid rgb(27 23 38 / .14)}.ds-bar-menu{font-weight:800;letter-spacing:-.01em;padding:4px 10px;border-radius:8px}.ds-bar-menu::before{content:\"\";display:inline-block;width:10px;height:10px;margin-right:8px;border-radius:50%;background:linear-gradient(135deg,#c3cdff,#ad2d6c)}.ds-bar-menu:hover{background:#efeaf8}.ds-bar-status{display:flex;align-items:center;gap:6px}.ds-bar-clock{font:.82rem \"IBM Plex Mono\",ui-monospace,monospace;padding:0 8px}.ds-bar-toggle{min-height:28px;padding:2px 10px;border:0;border-radius:8px;background:none;font:inherit;font-size:.85rem;color:inherit;cursor:pointer}.ds-bar-toggle:hover{background:#efeaf8}.ds-bar-toggle[aria-pressed=\"true\"]{color:#ad2d6c}.ds-bar-toggle:focus-visible{outline:2px solid #ad2d6c;outline-offset:2px}"
+      "description": "Translucent top bar: the hamster menu button, mono clock, theme and sound toggles.",
+      "html": "<header class=\"ds-bar\"><span class=\"ds-bar-menu\" aria-label=\"markOS menu\"><svg width=\"34\" height=\"27\" viewBox=\"0 0 40 32\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"9\" r=\"5\" fill=\"#e8a46a\"/><circle cx=\"11\" cy=\"9\" r=\"2.6\" fill=\"#f6a3cf\"/><circle cx=\"29\" cy=\"9\" r=\"5\" fill=\"#e8a46a\"/><circle cx=\"29\" cy=\"9\" r=\"2.6\" fill=\"#f6a3cf\"/><ellipse cx=\"20\" cy=\"19\" rx=\"13\" ry=\"11\" fill=\"#e8a46a\"/><ellipse cx=\"20\" cy=\"22\" rx=\"8\" ry=\"6.5\" fill=\"#fbe3c8\"/><ellipse cx=\"14.5\" cy=\"16.5\" rx=\"1.8\" ry=\"2\" fill=\"#1b1726\"/><ellipse cx=\"25.5\" cy=\"16.5\" rx=\"1.8\" ry=\"2\" fill=\"#1b1726\"/></svg></span><span class=\"ds-bar-status\"><span class=\"ds-bar-clock\">Wed 1:20 AM</span><button class=\"ds-bar-toggle\">Dark</button><button class=\"ds-bar-toggle\" aria-pressed=\"true\">Sound</button></span></header>",
+      "css": ".ds-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:36px;padding:0 12px;font:400 .9rem \"Bricolage Grotesque\",system-ui,sans-serif;color:#1b1726;background:color-mix(in srgb,#fff 72%,transparent);backdrop-filter:blur(14px) saturate(1.4);border-bottom:1px solid rgb(27 23 38 / .14)}.ds-bar-menu{display:inline-flex;padding:2px 8px;border-radius:8px}.ds-bar-menu:hover{background:#efeaf8}.ds-bar-status{display:flex;align-items:center;gap:6px}.ds-bar-clock{font:.82rem \"IBM Plex Mono\",ui-monospace,monospace;padding:0 8px}.ds-bar-toggle{min-height:28px;padding:2px 10px;border:0;border-radius:8px;background:none;font:inherit;font-size:.85rem;color:inherit;cursor:pointer}.ds-bar-toggle:hover{background:#efeaf8}.ds-bar-toggle[aria-pressed=\"true\"]{color:#ad2d6c}.ds-bar-toggle:focus-visible{outline:2px solid #ad2d6c;outline-offset:2px}"
     },
     {
-      "name": "Tracklist",
+      "name": "Taskbar",
       "kind": "nav",
-      "refersTo": "track-row",
-      "description": "The album tracklist is the main navigation; the title track is berry with a star.",
-      "html": "<ol class=\"ds-tracks\"><li><a href=\"#\"><span class=\"ds-n\">01</span><span>About Me</span><span class=\"ds-n\">1:24</span></a></li><li><a href=\"#\" aria-current=\"true\"><span class=\"ds-n\">03</span><span class=\"ds-title\">Projects <svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z\"/></svg></span><span class=\"ds-n\">3:33</span></a></li></ol>",
-      "css": ".ds-tracks{list-style:none;margin:0;padding:0;max-width:320px;font:400 1rem \"Bricolage Grotesque\",system-ui,sans-serif;color:#1b1726}.ds-tracks a{display:grid;grid-template-columns:2.2em 1fr auto;align-items:center;min-height:40px;padding:6px 8px;border-radius:8px;color:inherit;text-decoration:none;transition:background-color 180ms}.ds-tracks a:hover{background:#efeaf8}.ds-tracks a:focus-visible{outline:2px solid #ad2d6c;outline-offset:2px}.ds-n{font:.8rem \"IBM Plex Mono\",ui-monospace,monospace;color:#5a536a}.ds-title{display:inline-flex;align-items:center;gap:6px;color:#ad2d6c;font-weight:600}.ds-tracks a[aria-current=\"true\"]{background:#efeaf8;font-weight:700}.ds-tracks a[aria-current=\"true\"] .ds-n:first-child{color:#ad2d6c}"
+      "refersTo": "taskbar",
+      "description": "Translucent bottom bar; a muted dot means open, a wide berry dot means focused, green bars mean Music is playing.",
+      "html": "<nav class=\"ds-task\"><button class=\"ds-tb is-open\" aria-label=\"Music\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\"><circle cx=\"12\" cy=\"12\" r=\"12\" fill=\"#1ed760\"/><path d=\"M6 9.3c3.7-1.1 9.2-.9 12.6 1.2M6.6 12.6c3.2-.9 7.4-.6 10.2 1.2M7.2 15.7c2.7-.6 5.6-.4 7.9 1\" fill=\"none\" stroke=\"#121212\" stroke-width=\"1.5\" stroke-linecap=\"round\"/></svg><span class=\"ds-eq\"><i></i><i></i><i></i></span><span class=\"ds-dot\"></span></button><button class=\"ds-tb is-open is-focused\" aria-label=\"Projects\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"#8a9cf0\" stroke=\"#4a5bb8\" stroke-width=\"1.5\" stroke-linejoin=\"round\"><path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/></svg><span class=\"ds-dot\"></span></button><button class=\"ds-tb\" aria-label=\"Contact\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"#fbdcee\" stroke=\"#ad2d6c\" stroke-width=\"1.5\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"M3 7l9 6 9-6\" fill=\"none\"/></svg><span class=\"ds-dot\"></span></button></nav>",
+      "css": ".ds-task{display:flex;align-items:center;justify-content:center;gap:6px;height:52px;background:color-mix(in srgb,#fff 72%,transparent);backdrop-filter:blur(14px) saturate(1.4);border-top:1px solid rgb(27 23 38 / .14)}.ds-tb{position:relative;display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:10px;background:none;cursor:pointer;transition:background-color 180ms}.ds-tb:hover,.ds-tb.is-focused{background:#efeaf8}.ds-tb:focus-visible{outline:2px solid #ad2d6c;outline-offset:2px}.ds-dot{position:absolute;bottom:3px;left:50%;width:5px;height:3px;border-radius:2px;background:#5a536a;translate:-50% 0;opacity:0;transition:width 180ms cubic-bezier(.16,1,.3,1),opacity 180ms}.ds-tb.is-open .ds-dot{opacity:1}.ds-tb.is-focused .ds-dot{width:14px;background:#ad2d6c}.ds-eq{position:absolute;top:4px;right:4px;display:inline-flex;gap:1.5px;align-items:flex-end;height:10px}.ds-eq i{width:2.5px;height:100%;border-radius:1px;background:#1ed760;transform-origin:bottom;animation:ds-eq .8s ease-in-out infinite alternate}.ds-eq i:nth-child(2){animation-delay:-.3s}.ds-eq i:nth-child(3){animation-delay:-.55s}@keyframes ds-eq{from{scale:1 .3}to{scale:1 1}}@media (prefers-reduced-motion:reduce){.ds-eq i{animation:none}}"
+    },
+    {
+      "name": "Music Search and Song List",
+      "kind": "input",
+      "refersTo": "search-field",
+      "description": "The Music app's search field over its scrolling song list; the current song keeps the tint.",
+      "html": "<div class=\"ds-music\"><input class=\"ds-search\" type=\"search\" placeholder=\"Search songs\" aria-label=\"Search songs\"><ul class=\"ds-songs\"><li><a href=\"#\"><span class=\"ds-st\">Hot Mess</span><span class=\"ds-sa\">aespa</span><span class=\"ds-sd\">3:12</span></a></li><li><a href=\"#\" aria-current=\"true\"><span class=\"ds-st\">Hold On Tight</span><span class=\"ds-sa\">aespa</span><span class=\"ds-sd\">2:29</span></a></li></ul></div>",
+      "css": ".ds-music{display:flex;flex-direction:column;gap:12px;max-width:380px;font:400 1rem/1.55 \"Bricolage Grotesque\",system-ui,sans-serif;color:#1b1726}.ds-search{width:100%;box-sizing:border-box;min-height:44px;padding:10px 14px;border:1px solid rgb(27 23 38 / .14);border-radius:10px;background:#efeaf8;color:#1b1726;font:inherit}.ds-search:focus-visible{outline:2px solid #ad2d6c;outline-offset:0}.ds-songs{list-style:none;margin:0 -8px;padding:0}.ds-songs a{display:grid;grid-template-columns:1fr auto;grid-template-areas:\"title time\" \"artist time\";column-gap:12px;padding:8px;border-radius:8px;color:inherit;text-decoration:none}.ds-songs a:hover,.ds-songs a[aria-current=\"true\"]{background:#efeaf8}.ds-songs a:focus-visible{outline:2px solid #ad2d6c;outline-offset:2px}.ds-st{grid-area:title;font-weight:600}.ds-sa{grid-area:artist;font-size:.85rem;color:#5a536a}.ds-sd{grid-area:time;align-self:center;font:.8rem \"IBM Plex Mono\",ui-monospace,monospace;color:#5a536a}"
     },
     {
       "name": "Project File",
@@ -553,28 +735,50 @@
       "description": "The rotated butter todo note on the desktop floor.",
       "html": "<div class=\"ds-note\"><p>todo:</p><ul><li>learn React</li><li>sleep</li></ul></div>",
       "css": ".ds-note{width:196px;padding:16px 18px 18px;background:#fff0a8;color:#2a2414;font:400 .95rem/1.6 \"Bricolage Grotesque\",system-ui,sans-serif;rotate:3deg;box-shadow:0 2px 4px rgb(0 0 0 / .08),0 16px 26px -16px rgb(0 0 0 / .45)}.ds-note p{margin:0;font-weight:700}.ds-note ul{margin:0;padding:0;list-style:none}"
+    },
+    {
+      "name": "Hamster Bubble",
+      "kind": "custom",
+      "refersTo": "hamster-bubble",
+      "description": "The mascot's speech bubble, pointing back to the hamster with one tight corner.",
+      "html": "<span class=\"ds-bubble\">psst, open Projects</span>",
+      "css": ".ds-bubble{display:inline-block;padding:8px 12px;background:#fff;color:#1b1726;border:1px solid rgb(27 23 38 / .14);border-radius:12px 12px 12px 4px;box-shadow:0 2px 6px rgb(40 24 70 / .08),0 22px 44px -20px rgb(40 24 70 / .38);font:600 .95rem \"Bricolage Grotesque\",system-ui,sans-serif;white-space:nowrap}"
+    },
+    {
+      "name": "Boot Screen",
+      "kind": "custom",
+      "refersTo": "boot-screen",
+      "description": "Once-per-session boot: berry wheel, name, progress bar, mono status line.",
+      "html": "<div class=\"ds-boot\"><svg class=\"ds-wheel\" viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"><circle cx=\"60\" cy=\"60\" r=\"56\"/><path d=\"M60 4v112M4 60h112M20 20l80 80M100 20l-80 80\" stroke-opacity=\".35\"/></svg><p class=\"ds-boot-name\">markOS</p><span class=\"ds-boot-bar\"><span></span></span><p class=\"ds-boot-line\">booting&hellip;</p></div>",
+      "css": ".ds-boot{display:grid;justify-items:center;gap:12px;padding:40px;background:#120f1a;color:#f4f0fa;font-family:\"Bricolage Grotesque\",system-ui,sans-serif}.ds-wheel{width:132px;height:132px;color:#f6a3cf;animation:ds-spin 1.1s linear infinite}.ds-boot-name{margin:0;font-weight:800;font-size:1.5rem;letter-spacing:-.02em}.ds-boot-bar{width:180px;height:4px;border-radius:2px;background:rgb(255 255 255 / .15);overflow:hidden}.ds-boot-bar span{display:block;height:100%;width:0;background:#f6a3cf;animation:ds-fill 1.4s cubic-bezier(.16,1,.3,1) forwards}.ds-boot-line{margin:0;min-height:1.4em;font:.85rem \"IBM Plex Mono\",ui-monospace,monospace;color:#b6aec6}@keyframes ds-spin{to{rotate:1turn}}@keyframes ds-fill{to{width:100%}}@media (prefers-reduced-motion:reduce){.ds-wheel,.ds-boot-bar span{animation:none}.ds-boot-bar span{width:100%}}"
     }
   ],
   "narrative": {
     "northStar": "The Pastel Desktop",
-    "overview": "The whole site is a small personal computer. A soft printed wallpaper (periwinkle into bubblegum into butter, at 135 degrees, overlaid with fractal film grain) sits under crisp windows that behave like real ones: they open, focus, drag and close. Sections are apps, the navigation is an album's tracklist, and the chrome (menubar, titlebars, clock, folder icons, a sticky note) is the decoration. Nothing ornamental exists outside that computer metaphor.\n\nDensity is calm. Few objects on screen, generous window padding, one accent. Playfulness comes from the world (the album cover, the todo note, the GIF portraits, the self-deprecating copy), not from effects. At night the same wallpaper hues deepen to indigo, plum and violet, windows turn ink, and the berry accent lightens to a pastel pink so it holds contrast.\n\nWithout JavaScript, or below 721px, the same markup reads as a plain stacked column of windows; on phones with JavaScript it becomes a home screen (status bar, hello widget, app grid, now-playing widget) and opened apps take the full screen.",
+    "overview": "The whole site is a small personal computer. A soft printed wallpaper (periwinkle into bubblegum into butter, at 135 degrees, overlaid with fractal film grain) sits under crisp windows that behave like real ones: they open, focus, drag, resize, minimize to the taskbar, maximize and close. Sections are apps. Navigation is the computer's own: desktop icons down the right edge, a taskbar along the bottom, and hello.txt's two buttons. The chrome (menubar, traffic lights, titlebars, clock, taskbar, folder icons, a sticky note, a hamster) is the decoration. Nothing ornamental exists outside that computer metaphor.\n\nDensity is calm. At load only hello.txt is open; everything else waits behind an icon. One accent, generous window padding, few objects. Playfulness comes from the world (the hamster that lives in the menubar and runs the boot wheel, the todo note, the GIF portraits, the self-deprecating copy), not from effects. At night the same wallpaper hues deepen to indigo, plum and violet, windows turn ink, and the berry accent lightens to a pastel pink so it holds contrast.\n\nWithout JavaScript, or below 721px, the same markup reads as a plain stacked column of windows; on phones with JavaScript it becomes a home screen (status bar, hello widget, app grid) and opened apps take the full screen.",
     "keyCharacteristics": [
-      "A desktop, not a web page: windows, menubar, folder icons and a sticky note are the layout.",
+      "A desktop, not a web page: windows, menubar, taskbar, folder icons and a sticky note are the layout.",
       "Grainy pastel gradient wallpaper; flat white (or ink) windows above it.",
-      "One accent, pressed berry, reserved for the primary action, the title track and active states.",
+      "One accent, pressed berry, reserved for the primary action, the Projects star and the focused or current state.",
+      "Two borrowed palettes, each confined to its object: mac traffic lights in titlebars, Spotify green on Spotify.",
       "Bricolage Grotesque for everything human; IBM Plex Mono only for machine data.",
       "Soft, diffuse window shadows; focus is shown by a deeper shadow, never a ring on the window.",
-      "Motion is spatial and quick: windows grow out of whatever opened them."
+      "Motion is spatial and quick: windows grow out of whatever opened them and shrink into their taskbar icon."
     ],
     "rules": [
       {
         "name": "The One Berry Rule",
-        "body": "Berry marks exactly one thing per context: the primary action, the title track, the current state. If two berry items compete in one window, one of them is wrong.",
+        "body": "Berry marks exactly one thing per context: the primary action, the Projects star, the focused or current state. If two berry items compete in one window, one of them is wrong.",
         "section": "colors"
       },
       {
         "name": "The Wallpaper Hue Rule",
-        "body": "Any new decorative color (app tiles, folders, notes) is drawn from the wallpaper's own periwinkle, pink and butter. The phone's Projects tile is the one berry tile, because Projects is the title track.",
+        "body": "Any new decorative color (icons, app tiles, folders, notes) is drawn from the wallpaper's own periwinkle, pink and butter. The phone's Projects tile is the one berry tile, because Projects is the starred destination.",
+        "section": "colors"
+      },
+      {
+        "name": "The Borrowed Palette Rule",
+        "body": "Traffic-light colors live only in the three titlebar dots, and Spotify Green only on Spotify's mark and its playing indicator. Neither is ever text, a hover, a border or a state color anywhere else.",
         "section": "colors"
       },
       {
@@ -584,7 +788,7 @@
       },
       {
         "name": "The Machine Voice Rule",
-        "body": "Mono is for data the computer would print (filenames, times, counts). Never set prose, headings or buttons in mono.",
+        "body": "Mono is for data the computer would print (filenames, times, durations, boot status). Never set prose, headings or buttons in mono.",
         "section": "typography"
       },
       {
@@ -594,7 +798,7 @@
       },
       {
         "name": "The Focus Is Height Rule",
-        "body": "The focused window is shown by a deeper shadow and a darker title, never by an outline. Keyboard focus rings (2px berry, 2px offset) belong to controls inside windows.",
+        "body": "The focused window is shown by a deeper shadow, a darker title and a widened berry dot under its taskbar icon, never by an outline. Keyboard focus rings (2px berry, 2px offset) belong to controls inside windows.",
         "section": "elevation"
       },
       {
@@ -604,19 +808,21 @@
       }
     ],
     "dos": [
-      "Do put every new section in a window: titlebar with a mono filename, 12px corners, 1px edge, window shadow, 24px body.",
+      "Do put every new section in a window: traffic lights and a mono filename in the titlebar, 12px corners, 1px edge, window shadow, 24px body.",
+      "Do give every new app a desktop icon and a taskbar button in the same wallpaper-hue fill and stroke pair.",
       "Do use lilac tint as the single hover and selected background.",
-      "Do keep berry to one meaning per context: primary action, title track, current state.",
+      "Do keep berry to one meaning per context: primary action, Projects star, focused or current state.",
       "Do define new colors in both themes; dark lifts the accent to night berry with ink text on it.",
-      "Do open windows from their opener with the 300ms scale-and-blur grow, and fall back to opacity only under reduced motion.",
+      "Do open windows from their opener with the 300ms scale-and-blur grow, minimize them into their taskbar icon, and fall back to opacity only under reduced motion.",
       "Do keep everything readable as a stacked column without JavaScript.",
       "Do draw icons as stroked SVG in the sprite (1.8 stroke, round caps)."
     ],
     "donts": [
       "Don't set prose, headings or buttons in IBM Plex Mono.",
-      "Don't put a focus outline on a whole window; focus is the deeper shadow and darker title.",
+      "Don't put a focus outline on a whole window; focus is the deeper shadow, darker title and berry taskbar dot.",
       "Don't use hard offset shadows or glows.",
       "Don't introduce a second accent hue; new decoration borrows wallpaper hues.",
+      "Don't use traffic-light colors or Spotify Green outside their own objects, and never for text.",
       "Don't use solid gray borders; edges are translucent ink.",
       "Don't play sound unless the visitor switched it on."
     ]
