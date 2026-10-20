@@ -332,6 +332,7 @@ html:not(.js) .menubar__toggle { display: none; }
 .music__empty { color: var(--text-muted); }
 .music__player:empty { display: none; }
 .music__player:not(:empty) ~ .music__open { display: none; }
+.music__player:not(:empty) { min-height: 152px; border-radius: 12px; background: var(--tint); } /* placeholder while Spotify paints */
 .music__player iframe { display: block; width: 100%; border: 0; border-radius: 12px; }
 .music__open { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; text-decoration: none; }
 .music__open .icon { color: #1ed760; }
