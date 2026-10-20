@@ -302,7 +302,7 @@ html:not(.js) .win__close { display: none; }
 
 /* ---------- Music ---------- */
 
-.player { display: grid; grid-template-columns: 140px 1fr; gap: 20px; }
+.player { display: grid; grid-template-columns: clamp(88px, 11vw, 140px) 1fr; gap: clamp(14px, 1.6vw, 20px); }
 .player__cover {
   display: block;
   width: 100%;
@@ -541,7 +541,8 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
   html.js #projects { left: 8vw;  top: 4vh;  width: min(1000px, 82vw); }
   html.js #contact  { left: 28vw; top: 14vh; width: min(600px, 56vw); }
 
-  html.js .note { display: block; position: absolute; left: 7vw; bottom: 8vh; }
+  html.js .win { z-index: 1; } /* windows sit above the note until focus raises one further */
+  html.js .note { display: block; position: absolute; left: 7vw; bottom: 8vh; z-index: 0; }
   html.js .icons {
     display: flex;
     flex-direction: column;
