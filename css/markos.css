@@ -501,7 +501,7 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
     position: absolute;
     display: flex;
     flex-direction: column;
-    max-height: calc(100dvh - var(--bar-h) - 32px);
+    max-height: calc(100% - 16vh); /* % of the desktop area, so every window (tops 4–14vh) stops above the taskbar */
   }
   html.js .win__bar { cursor: grab; user-select: none; touch-action: none; }
   html.js .win.is-dragging .win__bar { cursor: grabbing; }
