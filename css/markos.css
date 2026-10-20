@@ -300,7 +300,7 @@ html:not(.js) .menubar__toggle { display: none; }
 
 /* ---------- Music (Spotify) ---------- */
 
-.music { display: flex; flex-direction: column; gap: 12px; }
+.music { display: flex; flex-direction: column; gap: 12px; min-height: 0; }
 .music__search {
   width: 100%;
   min-height: 44px;
@@ -312,7 +312,7 @@ html:not(.js) .menubar__toggle { display: none; }
   font: inherit;
 }
 .music__search:focus-visible { outline-offset: 0; }
-.music__list { max-height: 260px; overflow: auto; margin: 0 -8px; }
+.music__list { flex: 1; min-height: 140px; overflow: auto; margin: 0 -8px; }
 .music__list a {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -369,7 +369,7 @@ html:not(.js) .menubar__toggle { display: none; }
 .ico--about .icon { fill: #d3dbff; stroke: #4a5bb8; }
 .ico--skills .icon { fill: #fff0a8; stroke: #8a6a12; }
 .ico--contact .icon { fill: #fbdcee; stroke: #ad2d6c; }
-.ico--music .icon { fill: #1db954; stroke: none; width: 46px; height: 46px; margin: 3px; }
+.ico--music .icon { color: #1db954; width: 46px; height: 46px; margin: 3px; } /* the logo's fill follows color */
 .icons span { padding: 0 6px; border-radius: 4px; background: color-mix(in srgb, var(--win) 55%, transparent); }
 
 .note, .icons, .apps, .taskbar { display: none; }
