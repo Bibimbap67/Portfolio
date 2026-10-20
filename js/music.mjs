@@ -72,9 +72,8 @@ export function initMusic(root, { onPlayingChange } = {}) {
   function mount() {
     if (ready || host.dataset.mounting) return;
     host.dataset.mounting = "1";
-    const previous = window.onSpotifyIframeApiReady;
     window.onSpotifyIframeApiReady = (api) => {
-      previous?.(api);
+      if (controller || host.querySelector("iframe")) return; // a retried load must not add a second player
       const el = document.createElement("div");
       host.append(el);
       api.createController(el, { uri: `spotify:playlist:${PLAYLIST_ID}`, width: "100%", height: 152 }, (c) => {
@@ -98,5 +97,11 @@ export function initMusic(root, { onPlayingChange } = {}) {
     document.head.append(script);
   }
 
-  return { mount, pause: () => controller?.pause() };
+  function pause() {
+    wanted = null; // a song asked for just before closing must not start unseen later
+    playOnLoad = false;
+    controller?.pause();
+  }
+
+  return { mount, pause };
 }

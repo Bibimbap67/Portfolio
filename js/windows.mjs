@@ -101,11 +101,16 @@ export function initWindows(root, { onOpen, onClose, onChange, isPhone = () => f
 
   async function minimize(id) {
     const el = wins.get(id);
-    if (!el?.classList.contains("is-open") || el.classList.contains("is-minimized")) return;
-    await animateWindow(el, minimizeTarget(id), false);
+    if (!el?.classList.contains("is-open") || el.classList.contains("is-minimized") || closing.has(id)) return;
+    const target = minimizeTarget(id);
+    const hadFocus = el.contains(document.activeElement);
+    await animateWindow(el, target, false);
+    if (!el.classList.contains("is-open")) return; // closed while it was shrinking
     el.classList.add("is-minimized");
     el.classList.remove("is-focused");
     changed();
+    // Keyboard users land on the taskbar icon (or phone tile) the window went into.
+    if (hadFocus && target?.offsetParent !== null) target?.focus({ preventScroll: true });
   }
 
   function restore(id) {
