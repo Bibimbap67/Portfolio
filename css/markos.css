@@ -463,8 +463,8 @@ mark {
   border: 1px solid var(--edge);
   transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
 }
-.file h3 { margin-top: 12px; font-size: 1.12rem; font-weight: 700; letter-spacing: -0.01em; }
-.file p { margin-top: 4px; font-size: 0.95rem; color: var(--text-muted); text-wrap: pretty; }
+.file h3 { margin-top: 12px; font-size: 1.3rem; font-weight: 700; letter-spacing: -0.015em; }
+.file p { margin-top: 4px; color: var(--text-muted); text-wrap: pretty; }
 .file__stack { margin-top: 10px; font-size: 0.85rem; font-weight: 600; }
 .file__open {
   display: inline-flex;
@@ -570,8 +570,12 @@ a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
 /* ---------- phone home screen (JS + narrow screens) ---------- */
 
 @media (max-width: 720px) {
+  html.js { --bar-h: 48px; }
   html.js .menubar { position: fixed; inset: 0 0 auto 0; }
-  html.js .menubar__toggle { min-width: 40px; min-height: 36px; justify-content: center; padding: 2px 8px; }
+  html.js .menubar__menu summary { display: inline-flex; align-items: center; min-height: 44px; }
+  html.js .menubar__toggle { min-width: 44px; min-height: 44px; justify-content: center; padding: 2px 8px; }
+  html.js .tracks a, html.js .contact__links a { min-height: 48px; }
+  html.js .menubar__menu a { display: flex; align-items: center; min-height: 44px; }
   html.js .menubar__toggle span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 
   html.js .desktop {
