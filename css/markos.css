@@ -200,6 +200,7 @@ html:not(.js) .menubar__toggle { display: none; }
   overflow: hidden;
   scroll-margin-top: calc(var(--bar-h) + 16px);
 }
+.win:focus { outline: none; } /* the focused window is shown by .is-focused (shadow + title), not a ring */
 
 .win__bar {
   display: flex;
