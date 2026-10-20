@@ -11,6 +11,15 @@
         ],
         "createdAt": "2026-10-20T14:43:56.574Z",
         "reason": "Claude: markOS windows contain album art (Music) and logo chips by design; window-in-desktop is the OS metaphor the user chose"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".superpowers/brainstorm/front-page-directions.html"
+        ],
+        "createdAt": "2026-10-20T15:05:38.816Z",
+        "reason": "Claude: throwaway brainstorm mockup (gitignored, never shipped) showing the old portfolio's fonts for comparison"
       }
     ]
   }
