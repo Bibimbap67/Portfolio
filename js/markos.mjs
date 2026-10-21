@@ -3,6 +3,7 @@ import { SECTIONS, sectionFromHash } from "./router.mjs";
 import { createSound } from "./sound.mjs";
 import { initWindows, taskbarAction } from "./windows.mjs";
 import { initMusic } from "./music.mjs";
+import { initTilt } from "./tilt.mjs";
 import { LINES, pickLine } from "./hamster.mjs";
 
 const root = document.documentElement;
@@ -38,6 +39,9 @@ function paintTaskbar() {
   });
   syncHome();
 }
+
+const tiltStage = document.querySelector("[data-tilt]");
+if (tiltStage) initTilt(tiltStage, tiltStage.querySelector(".idcard"));
 
 const music = initMusic(document.getElementById("music"), {
   onPlayingChange(playing) {

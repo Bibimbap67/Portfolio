@@ -434,8 +434,56 @@ html:not(.js) .menubar__toggle { display: none; }
 
 /* ---------- About ---------- */
 
-.about { display: grid; grid-template-columns: 200px 1fr; gap: 28px; align-items: start; }
-.about__photo { width: 200px; aspect-ratio: 1; object-fit: cover; border-radius: 10px; }
+.about { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
+
+/* NU-style student card: its navy and gold are borrowed, like Spotify's green, and stay on this one object.
+   Sizes are cqw so the whole card scales with its width (the 340px design = 100cqw). */
+.idcard-stage { container-type: inline-size; width: min(520px, 100%); margin-inline: auto; perspective: 900px; }
+.idcard {
+  --navy: #111f66;
+  --ink: #14235e;
+  position: relative;
+  aspect-ratio: 340 / 214;
+  overflow: hidden;
+  border-radius: 4.1cqw;
+  background: var(--navy);
+  color: #ffffff;
+  box-shadow: var(--shadow);
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 150ms ease-out;
+}
+.idcard__bg { position: absolute; inset: 0; width: 100%; height: 100%; font-family: var(--font-ui); }
+.idcard__sheen {
+  position: absolute;
+  top: -100%;
+  left: 27.5%;
+  width: 45%;
+  height: 300%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.16) 50%, transparent); /* feathered, so no hard edge shows */
+  transform: rotate(20deg) translateX(calc(var(--sx, 0) * 200cqw));
+  pointer-events: none;
+}
+.idcard__head { position: absolute; left: 4.7cqw; top: 4.1cqw; display: flex; align-items: center; gap: 2.9cqw; }
+.idcard__head img { width: 9.4cqw; height: auto; }
+.idcard__head b { font-size: 4.4cqw; font-weight: 800; line-height: 1.05; letter-spacing: 0.06em; }
+.idcard__name { position: absolute; left: 4.7cqw; top: 23cqw; font-size: 5cqw; font-weight: 800; line-height: 1.1; letter-spacing: 0.02em; }
+.idcard__prog { position: absolute; left: 4.7cqw; top: 36.5cqw; font-size: 3.5cqw; font-weight: 600; line-height: 1.35; color: #fcd116; }
+.idcard__photo {
+  position: absolute;
+  right: 4.7cqw;
+  top: 6.5cqw;
+  width: 33cqw;
+  height: 35.3cqw;
+  object-fit: cover;
+  border: 1px solid rgb(255 255 255 / 0.2);
+  border-radius: 2.9cqw;
+  background: #0b1544;
+}
+.idcard__foot { position: absolute; inset: auto 0 0 0; height: 11.2cqw; }
+.idcard__foot svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.idcard__foot span { position: absolute; top: 0; height: 100%; display: flex; align-items: center; font-size: 5cqw; font-weight: 800; letter-spacing: 0.02em; color: var(--ink); }
+.idcard__foot span:first-of-type { left: 4.7cqw; }
+.idcard__foot span:last-of-type { right: 4.7cqw; }
 .about__text p { max-width: 62ch; text-wrap: pretty; }
 .about__text p + p { margin-top: 14px; }
 mark {
@@ -597,7 +645,7 @@ a.file:hover > img { transform: translateY(-3px); box-shadow: var(--shadow); }
   html.js #hello    { left: 5vw;  --top: 6vh;  width: min(580px, 46vw); }
   /* Music tucks under hello.txt's right edge so the first view reads as stacked windows */
   html.js #music    { left: 50vw; --top: 9vh;  width: min(440px, 40vw); }
-  html.js #about    { left: 14vw; --top: 7vh;  width: min(780px, 72vw); }
+  html.js #about    { left: 14vw; --top: 7vh;  width: min(880px, 78vw); }
   html.js #skills   { left: 18vw; --top: 10vh; width: min(720px, 68vw); }
   html.js #projects { left: 8vw;  --top: 4vh;  width: min(1000px, 82vw); }
   html.js #contact  { left: 28vw; --top: 14vh; width: min(600px, 56vw); }
@@ -684,7 +732,6 @@ a.file:hover > img { transform: translateY(-3px); box-shadow: var(--shadow); }
   .hello__name { font-size: clamp(2rem, 9vw, 2.6rem); }
   .hello__line { font-size: 1.02rem; }
   .about, .contact { grid-template-columns: 1fr; }
-  .about__photo { width: 140px; }
   .about__rows div, .sysinfo__row { grid-template-columns: 1fr; gap: 4px; }
   .sysinfo__row dt { padding-top: 0; }
   .contact__gif { width: 140px; }
