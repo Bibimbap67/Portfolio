@@ -313,26 +313,85 @@ html:not(.js) .menubar__toggle { display: none; }
 .music__list { flex: 1; min-height: 140px; overflow: auto; margin: 0 -8px; }
 .music__list a {
   display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-areas: "title time" "artist time";
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  grid-template-areas: "art title time" "art artist time";
+  align-items: center;
   column-gap: 12px;
   padding: 8px;
   border-radius: 8px;
   text-decoration: none;
 }
 .music__list a:hover { background: var(--tint); }
-.music__list a[aria-current="true"] { background: var(--tint); }
-.music__list a[aria-current="true"] .music__title { color: var(--accent); } /* berry marks "current"; Spotify green stays on the logo */
+.music__list a[aria-current] { background: var(--tint); }
+.music__list a[aria-current] .music__title { color: var(--accent); } /* berry marks "current"; Spotify green stays on the logo */
+.music__art { grid-area: art; width: 40px; height: 40px; border-radius: 6px; background: var(--tint); object-fit: cover; }
 .music__title { grid-area: title; font-weight: 600; }
 .music__artist { grid-area: artist; font-size: 0.85rem; color: var(--text-muted); }
+.music__title, .music__artist { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .music__time { grid-area: time; align-self: center; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); }
 .music__empty { color: var(--text-muted); }
-.music__player:empty { display: none; }
-.music__player:not(:empty) ~ .music__open { display: none; }
-.music__player:not(:empty) { min-height: 152px; border-radius: 12px; background: var(--tint); } /* placeholder while Spotify paints */
-.music__player iframe { display: block; width: 100%; border: 0; border-radius: 12px; }
+
+/* now-playing bar; Spotify's own embed runs hidden in .music__host */
+.music__host { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
+.music__now {
+  --np-text: #ffffff;
+  --np-muted: rgb(255 255 255 / 0.74);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--np-text);
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #1c1826;
+}
+/* the cover, blurred, is the bar's background; the second layer keeps the text readable on any colours */
+.music__now::before, .music__now::after { content: ""; position: absolute; inset: 0; z-index: -1; }
+.music__now::before { background: var(--cover) center / cover; filter: blur(22px) saturate(1.5); scale: 1.5; }
+.music__now::after { background: rgb(0 0 0 / 0.42); }
+.music__now[hidden] { display: none; }
+.music__now-art { width: 52px; height: 52px; border-radius: 6px; object-fit: cover; }
+.music__now-text { display: flex; flex-direction: column; min-width: 0; }
+.music__now-title { font-weight: 600; color: var(--np-text); text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.music__now-title:hover { text-decoration: underline; }
+.music__now-artist { font-size: 0.85rem; color: var(--np-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.music__mark { position: relative; width: 24px; height: 24px; color: #1ed760; }
+.music__mark .icon, .music__eq { position: absolute; inset: 0; width: 24px; height: 24px; transition: opacity var(--dur), scale var(--dur); }
+.music__eq { display: flex; align-items: flex-end; justify-content: center; gap: 2px; padding: 3px 0; opacity: 0; scale: 0.7; }
+.music__eq i { width: 3px; height: 100%; border-radius: 1px; background: currentColor; transform-origin: bottom; animation: eq 0.8s ease-in-out infinite alternate; }
+.music__eq i:nth-child(2) { animation-delay: -0.3s; }
+.music__eq i:nth-child(3) { animation-delay: -0.55s; }
+.is-playing .music__eq { opacity: 1; scale: 1; }
+.is-playing .music__mark .icon { opacity: 0; scale: 0.7; }
+.music__controls { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; gap: 16px; }
+.music__controls button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--np-muted);
+  cursor: pointer;
+}
+.music__controls button:hover { color: var(--np-text); }
+.music__controls button[aria-pressed="true"] { color: #1ed760; }
+.music__controls .icon { width: 20px; height: 20px; }
+.music__controls .music__pp { background: #ffffff; color: #17141f; }
+.music__controls .music__pp:hover { color: #17141f; scale: 1.06; }
+.music__pp .icon:last-child, .is-playing .music__pp .icon:first-child { display: none; }
+.is-playing .music__pp .icon:last-child { display: block; }
+.music__seek-row { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--np-muted); }
+.music__seek { flex: 1; min-width: 0; height: 4px; appearance: none; border-radius: 2px; cursor: pointer; background: linear-gradient(to right, #ffffff var(--pos, 0%), rgb(255 255 255 / 0.3) var(--pos, 0%)); }
+.music__seek::-webkit-slider-thumb { appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #ffffff; }
+.music__seek::-moz-range-thumb { width: 12px; height: 12px; border: 0; border-radius: 50%; background: #ffffff; }
 .music__open { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; text-decoration: none; }
 .music__open .icon { color: #1ed760; }
+.music__now:not([hidden]) ~ .music__open { display: none; }
 .icon .fill, .icon:has(use[href="#i-spotify"]) { fill: currentColor; stroke: none; }
 
 /* ---------- sticky note + desktop icons + phone apps (desktop/phone only) ---------- */
