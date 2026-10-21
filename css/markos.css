@@ -435,7 +435,7 @@ mark {
   text-decoration: none;
   transition: background-color var(--dur);
 }
-.file img {
+.file > img {
   width: 100%;
   aspect-ratio: 16 / 10;
   object-fit: cover;
@@ -445,7 +445,10 @@ mark {
 }
 .file h3 { margin-top: 12px; font-size: 1.3rem; font-weight: 700; letter-spacing: -0.015em; }
 .file p { margin-top: 4px; color: var(--text-muted); text-wrap: pretty; }
-.file__stack { margin-top: 10px; font-size: 0.85rem; font-weight: 600; }
+.file__stack { margin-top: 10px; font-size: 0.85rem; font-weight: 600; display: flex; flex-wrap: wrap; gap: 8px; }
+.file__stack img { width: 16px; height: 16px; }
+/* Express's brand mark is near-black, so it would vanish on the dark theme */
+[data-theme="dark"] .file__stack img[src$="express.svg"] { filter: invert(1); }
 .file__open {
   display: inline-flex;
   align-items: center;
@@ -457,9 +460,9 @@ mark {
   color: var(--accent);
 }
 a.file:hover { background: var(--tint); }
-a.file:hover img { transform: translateY(-3px); box-shadow: var(--shadow); }
+a.file:hover > img { transform: translateY(-3px); box-shadow: var(--shadow); }
 .file--soon { border: 1.5px dashed var(--edge); }
-.file--soon img { object-fit: contain; background: var(--tint); }
+.file--soon > img { object-fit: contain; background: var(--tint); }
 .file--soon .file__open { color: var(--text-muted); }
 
 /* ---------- Contact ---------- */
