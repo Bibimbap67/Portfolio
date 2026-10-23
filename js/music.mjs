@@ -190,7 +190,7 @@ const IFRAME_API = "https://open.spotify.com/embed/iframe-api/v1";
 
 // Spotify's own embed controller runs hidden; the bar below the list is the visible player.
 // Created the first time Music opens so nothing loads before that.
-export function initMusic(root, { onPlayingChange } = {}) {
+export function initMusic(root, { onPlayingChange, onNow } = {}) {
   const search = root.querySelector(".music__search");
   const empty = root.querySelector(".music__empty");
   const host = root.querySelector("[data-player]");
@@ -236,6 +236,7 @@ export function initMusic(root, { onPlayingChange } = {}) {
     seek.style.setProperty("--pos", "0%");
     timeNow.textContent = "0:00";
     now.hidden = false;
+    onNow?.({ track, position: 0, duration: 0 });
     const uri = `spotify:track:${track.id}`;
     if (!controller) { wanted = track; return; }
     playOnLoad = true;
@@ -270,6 +271,7 @@ export function initMusic(root, { onPlayingChange } = {}) {
     seek.style.setProperty("--pos", duration ? `${(position / duration) * 100}%` : "0%");
     timeNow.textContent = formatTime(position);
     timeEnd.textContent = formatTime(duration);
+    if (current) onNow?.({ track: current, position, duration });
     if (position < duration - 1000) ended = false;
     if (!ended && duration > 0 && position >= duration - 250) {
       ended = true;

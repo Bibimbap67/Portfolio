@@ -44,13 +44,15 @@ function paintTaskbar() {
 const tiltStage = document.querySelector("[data-tilt]");
 if (tiltStage) initTilt(tiltStage, tiltStage.querySelector(".idcard"));
 
-initWidgets(document.querySelector(".widgets"));
+const widgets = initWidgets(document.querySelector(".widgets"), { openMusic: (opener) => openSection("music", opener) });
 
 const music = initMusic(document.getElementById("music"), {
   onPlayingChange(playing) {
     taskButtons.get("music")?.classList.toggle("is-playing", playing);
     musicTile?.classList.toggle("is-playing", playing);
+    widgets.setPlaying(playing);
   },
+  onNow: widgets.setNow,
 });
 
 const wm = initWindows(desktop, {

@@ -447,6 +447,7 @@ html:not(.js) .menubar__toggle { display: none; }
   box-shadow: 0 1px 2px rgb(40 24 70 / 0.06), 0 12px 28px -12px rgb(40 24 70 / 0.35);
   color: var(--w-ink);
 }
+.wgt--music { grid-column: span 2; }
 
 .wgt--clock { padding: 10px; }
 .wgt--clock svg { width: 100%; height: 100%; }
@@ -461,6 +462,37 @@ html:not(.js) .menubar__toggle { display: none; }
 .wgt__day { margin-top: 2px; font-size: 54px; font-weight: 400; line-height: 1.05; letter-spacing: -0.04em; }
 .wgt__line { margin-top: auto; font-size: 0.8rem; font-weight: 600; }
 .wgt__sub { font-size: 0.8rem; color: var(--w-mut); }
+
+.wgt--music { flex-direction: row; align-items: center; gap: 14px; }
+.wgt--music.has-track { --w-ink: #ffffff; --w-mut: rgb(255 255 255 / 0.78); border-color: rgb(255 255 255 / 0.25); }
+.wgt--music.has-track::before { content: ""; position: absolute; inset: -40%; z-index: -2; background: var(--cover) center / cover; filter: blur(28px) saturate(1.5); }
+.wgt--music.has-track::after { content: ""; position: absolute; inset: 0; z-index: -1; background: rgb(18 12 28 / 0.4); }
+.wgt__cover { position: relative; flex: none; display: grid; place-items: center; width: 104px; height: 104px; padding: 0; overflow: hidden; border-radius: 12px; background: var(--tint); color: #1ed760; }
+.has-track .wgt__cover { box-shadow: 0 8px 18px -8px rgb(0 0 0 / 0.5); }
+.wgt__cover .icon { width: 44px; height: 44px; }
+.wgt__art { position: absolute; inset: 0; display: none; background: var(--cover) center / cover; }
+.has-track .wgt__art { display: block; }
+.wgt__info { flex: 1; min-width: 0; height: 104px; display: flex; flex-direction: column; }
+.wgt__head { display: flex; align-items: flex-start; gap: 6px; }
+.wgt__text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.wgt__title, .wgt__artist { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wgt__title { font-size: 1rem; font-weight: 600; }
+.wgt__artist { font-size: 0.88rem; color: var(--w-mut); }
+.wgt__eq { display: none; align-items: flex-end; gap: 2px; height: 13px; margin-top: 4px; color: #1ed760; }
+.wgt--music.is-playing .wgt__eq { display: flex; }
+.wgt__eq i { width: 3px; height: 100%; border-radius: 1px; background: currentColor; transform-origin: bottom; animation: eq 0.8s ease-in-out infinite alternate; }
+.wgt__eq i:nth-child(2) { animation-delay: -0.3s; }
+.wgt__eq i:nth-child(3) { animation-delay: -0.55s; }
+.wgt__foot { margin-top: auto; }
+.wgt__bar { height: 4px; border-radius: 2px; background: color-mix(in srgb, var(--w-ink) 22%, transparent); }
+.wgt__bar i { display: block; width: 0; height: 100%; border-radius: 2px; background: var(--w-ink); }
+.wgt__times { display: flex; justify-content: space-between; margin-top: 4px; font: 500 0.72rem var(--font-mono); color: var(--w-mut); }
+.wgt__ctl { display: flex; justify-content: center; gap: 22px; }
+.wgt__ctl button { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; color: var(--w-ink); transition: scale var(--dur); }
+.wgt__ctl button:hover { scale: 1.1; }
+.wgt__ctl .icon { width: 20px; height: 20px; }
+.wgt__ctl [data-w="pp"] .icon:last-child, .is-playing [data-w="pp"] .icon:first-child { display: none; }
+.is-playing [data-w="pp"] .icon:last-child { display: block; }
 
 .note, .icons, .apps, .taskbar, .widgets { display: none; }
 
