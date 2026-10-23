@@ -803,7 +803,7 @@ a.file:hover > img { transform: translateY(-3px); box-shadow: var(--shadow); }
 
   /* opened apps take the whole screen under the status bar */
   html.js .win:not(#hello):not(.is-open), html.js .win.is-minimized:not(#hello) { display: none; }
-  html.js .win.is-open:not(#hello) {
+  html.js .win.is-open:not(#hello):not(.is-minimized) {
     position: fixed;
     inset: var(--bar-h) 0 0 0;
     z-index: 900;
