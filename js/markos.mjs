@@ -4,6 +4,7 @@ import { createSound } from "./sound.mjs";
 import { initWindows, taskbarAction } from "./windows.mjs";
 import { initMusic } from "./music.mjs";
 import { initTilt } from "./tilt.mjs";
+import { initWidgets } from "./widgets.mjs";
 import { LINES, pickLine } from "./hamster.mjs";
 
 const root = document.documentElement;
@@ -42,6 +43,8 @@ function paintTaskbar() {
 
 const tiltStage = document.querySelector("[data-tilt]");
 if (tiltStage) initTilt(tiltStage, tiltStage.querySelector(".idcard"));
+
+initWidgets(document.querySelector(".widgets"));
 
 const music = initMusic(document.getElementById("music"), {
   onPlayingChange(playing) {
