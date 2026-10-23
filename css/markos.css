@@ -447,7 +447,7 @@ html:not(.js) .menubar__toggle { display: none; }
   box-shadow: 0 1px 2px rgb(40 24 70 / 0.06), 0 12px 28px -12px rgb(40 24 70 / 0.35);
   color: var(--w-ink);
 }
-.wgt--music { grid-column: span 2; }
+.wgt--music, .wgt--now { grid-column: span 2; }
 
 .wgt--clock { padding: 10px; }
 .wgt--clock svg { width: 100%; height: 100%; }
@@ -493,6 +493,15 @@ html:not(.js) .menubar__toggle { display: none; }
 .wgt__ctl .icon { width: 20px; height: 20px; }
 .wgt__ctl [data-w="pp"] .icon:last-child, .is-playing [data-w="pp"] .icon:first-child { display: none; }
 .is-playing [data-w="pp"] .icon:last-child { display: block; }
+
+.wgt--now ul { margin-top: 6px; list-style: none; }
+.wgt--now li { position: relative; padding: 6px 0 6px 25px; border-bottom: 1px solid var(--edge); font-size: 0.82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wgt--now li:last-child { border-bottom: 0; padding-bottom: 0; }
+.wgt--now li::before { content: ""; position: absolute; left: 0; top: 50%; width: 15px; height: 15px; margin-top: -7px; border: 1.5px solid var(--text-muted); border-radius: 50%; }
+.wgt--now li:first-child::before { border-color: var(--accent); }
+.wgt--now li:last-child::before { margin-top: -10px; }
+.wgt--now li span { color: var(--text-muted); }
+.wgt--now li b { font-weight: 600; }
 
 .note, .icons, .apps, .taskbar, .widgets { display: none; }
 
